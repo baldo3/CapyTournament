@@ -3,10 +3,20 @@ Herramienta para jugadores amateur de MOBA que quieren organizar y participar en
 Completada con estadísticas sobre partidos, jugadores y campeones.
 
 ## 🌎 Parte pública ##
-Serán visibles los torneos, resultados de los encuentros, estadísticas de los torneos, equipos, jugadores y campeones (personajes).
+- Ver los torneos existentes, equipos y jugadores participantes y resultados.
+- Consultar las estadísticas de cualquier torneo, equippo, jugador o campeón (personaje).
 
 ## 🔒 Parte privada ##
-Gestión de cuentas de usuario, pudiendo registrarse como administrador y como jugador, permisos para crear y participar en torneos, y configuracion del perfil del usuario y del equipo. Un usuario de clase admin puede ser tambine jugador, y debe haber un capitan por equipo. Admins y capitanes tendran acceso a mas estadisticas y opciones que los jugadores.
+JUGADOR:
+- Crear un equipo o unirse a uno ya existente.
+- Si es capitán, gestionar los jugadores de su equipo e inscribir su equipo a un torneo.
+
+ADMINISTRADOR:
+- Crear un torneo.
+- Gestionar los resultados de los encuentros (equipo ganador y estadísticas)
+- Modficar qué estadísticas son visibles para los usuarios.
+- Si fuese necesario, expulsar equipos o jugadores concretos de un torneo.
+
 
 ## 📦 Entidades ##
 - Torneo: almacena los diferentes partidos y equipos, así como el formato del torneo.
