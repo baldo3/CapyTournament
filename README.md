@@ -16,7 +16,8 @@ Gestión de cuentas de usuario, pudiendo registrarse como administrador y como j
 - Campeón (Personaje): puede ser jugado por varios jugadores (máximo una vez por partido) y también tiene sus propias estadísticas.
 
 ## 🔧 Funcionalidades del servicio interno ##
-- Almacenamiento de las entidades de la base de datos
-- Almacenamiento de los datos en bruto y elaboración de las estadísticas
-- Gestión del sistema de login y control de usuarios
 - Envío de correos electrónicos a los participantes horas antes de sus partidos.
+- Elaboración de las estadísticas en base a los datos almacenados en la BDD.
+
+- Gestión del sistema de login y control de usuarios
+
