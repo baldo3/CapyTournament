@@ -28,5 +28,4 @@ ADMINISTRADOR:
 ## 🔧 Funcionalidades del servicio interno ##
 - Envío de correos electrónicos a los participantes horas antes de sus partidos.
 - Elaboración de las estadísticas en base a los datos almacenados en la BDD.
-- (Gestión del sistema de login y control de usuarios.)
 
