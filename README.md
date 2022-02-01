@@ -14,7 +14,6 @@ JUGADOR:
 ADMINISTRADOR:
 - Crear un torneo.
 - Gestionar los resultados de los encuentros (equipo ganador y estadísticas)
-- Modficar qué estadísticas son visibles para los usuarios.
 - Si fuese necesario, expulsar equipos o jugadores concretos de un torneo.
 
 
