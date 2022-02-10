@@ -14,6 +14,7 @@ public class TeamsList {
         List<String> teams= Arrays.asList("Móstoles","Fuenlabrada","Leganés");
     	model.addAttribute("sectionName", "Equipos");
     	model.addAttribute("items", teams);
+    	model.addAttribute("sectionID", "team");
     	return "list_template";
     }
 }

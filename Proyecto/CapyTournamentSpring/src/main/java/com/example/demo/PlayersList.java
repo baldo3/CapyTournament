@@ -14,6 +14,7 @@ public class PlayersList {
         List<String> players= Arrays.asList("Baldo","Claudia","Javi");
     	model.addAttribute("sectionName", "Jugadores");
     	model.addAttribute("items", players);
+    	model.addAttribute("sectionID", "player");
     	return "list_template";
     }
 }

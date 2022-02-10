@@ -1,0 +1,20 @@
+#top_bar_2 ul{
+   list-style-type: none;
+   text-align: center;
+}
+#top_bar_2 li{
+   display: inline;
+   text-align: center;
+   margin: 0 10px 0 0;
+}
+#top_bar_2 li a {
+   padding: 2px 7px 2px 7px;
+   color: red;
+   background-color: #eeeeee;
+   border: 1px solid #ccc;
+   text-decoration: none;
+}
+#top_bar_2 li a:hover{
+   background-color: #333333;
+   color: #ffffff;
+   }

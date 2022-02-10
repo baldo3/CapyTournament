@@ -1,35 +1,22 @@
 <html>
 <head>
+<link rel="stylesheet" href="styles.css">
 <title>Capy Tournament</title>
-
-<style type="text/css">
-#bar ul{
-   list-style-type: none;
-   text-align: center;
-}
-#bar li{
-   display: inline;
-   text-align: center;
-   margin: 0 10px 0 0;
-}
-#bar li a {
-   padding: 2px 7px 2px 7px;
-   color: #666;
-   background-color: #eeeeee;
-   border: 1px solid #ccc;
-   text-decoration: none;
-}
-#bar li a:hover{
-   background-color: #333333;
-   color: #ffffff;
-}
-   </style>
 </head>
 
 <body>
 
+<div id="top_bar_1">
+<span id="logo">
+<h1>[LOGO DE LA PÁGINA]</h1>
+</span>
 
-<div id="bar">
+<span id="login">
+<h1>[LOG-IN]</h1>
+</span>
+</div>
+
+<div id="top_bar_2">
 <ul>
 <li><a href="/home">Inicio</a></li>
 <li><a href="/tournaments_list">Torneos</a></li>
@@ -50,7 +37,7 @@
 	{{#items}}
  	<tr>
  	<td>{{-index}}</td>
- 	<td> <a href="/team?teamName=Pisillo2">{{.}}</a></td>
+ 	<td> <a href="/{{sectionID}}?name={{.}}">{{.}}</a></td>
  	</tr>
  	{{/items}}
  	</table id="generic_list">	

@@ -14,6 +14,7 @@ public class TournamentsList {
         List<String> tournaments= Arrays.asList("Copa Pistón","Copa del Fari","El Matar");
     	model.addAttribute("sectionName", "Torneos");
     	model.addAttribute("items", tournaments);
+    	model.addAttribute("sectionID", "tournament");
     	return "list_template";
     }
 }

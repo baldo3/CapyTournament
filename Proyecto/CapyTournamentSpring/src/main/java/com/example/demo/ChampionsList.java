@@ -14,6 +14,7 @@ public class ChampionsList {
         List<String> champions= Arrays.asList("Aatrox","Ahri","Akali","Bardo","Blitzcrank");
     	model.addAttribute("sectionName", "Campeones");
     	model.addAttribute("items", champions);
+    	model.addAttribute("sectionID", "champion");
     	return "list_template";
     }
 }
