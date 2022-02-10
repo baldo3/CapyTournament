@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>Capy Tournament</title>
+
+<style type="text/css">
+#bar ul{
+   list-style-type: none;
+   text-align: center;
+}
+#bar li{
+   display: inline;
+   text-align: center;
+   margin: 0 10px 0 0;
+}
+#bar li a {
+   padding: 2px 7px 2px 7px;
+   color: #666;
+   background-color: #eeeeee;
+   border: 1px solid #ccc;
+   text-decoration: none;
+}
+#bar li a:hover{
+   background-color: #333333;
+   color: #ffffff;
+}
+   </style>
+</head>
+
+<body>
+
+
+<div id="bar">
+<ul>
+<li><a href="/home">Inicio</a></li>
+<li><a href="/tournaments_list">Torneos</a></li>
+<li><a href="/teams_list">Equipos</a></li>
+<li><a href="/players_list">Jugadores</a></li>
+<li><a href="/champions_list">Campeones</a></li>
+</ul>
+</div>
+<div id="content">
+	
+	<h1 id="title">Equipo {{teamName}}</h1 id="title">
+	
+	{{#hasDescription}}
+	<p id="description">{{description}}</p>
+	{{/hasDescription}}
+	
+	<table id="players_list">
+	{{#players}}
+ 	<tr>
+ 	<td>{{-index}}</td>
+ 	<td> <a href="/team">{{.}}</a></td>
+ 	</tr>
+ 	{{/players}}
+ 	</table id="generic_list">	
+</div>
+
+
+
+</body>
+</html>
