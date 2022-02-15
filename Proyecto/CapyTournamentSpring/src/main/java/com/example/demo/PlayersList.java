@@ -15,6 +15,7 @@ public class PlayersList {
     	model.addAttribute("sectionName", "Jugadores");
     	model.addAttribute("items", players);
     	model.addAttribute("sectionID", "player");
+    	model.addAttribute("isPlayersList", true);
     	return "list_template";
     }
 }

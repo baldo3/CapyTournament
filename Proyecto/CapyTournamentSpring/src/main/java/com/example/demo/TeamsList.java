@@ -15,6 +15,7 @@ public class TeamsList {
     	model.addAttribute("sectionName", "Equipos");
     	model.addAttribute("items", teams);
     	model.addAttribute("sectionID", "team");
+    	model.addAttribute("isTeamsList", true);
     	return "list_template";
     }
 }

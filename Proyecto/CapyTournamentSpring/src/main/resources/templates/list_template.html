@@ -8,11 +8,11 @@
 
 <div id="top_bar_1">
 <span id="logo">
-<h1>[LOGO DE LA PÁGINA]</h1>
+<h1>CAPY TOURNAMENT</h1>
 </span>
 
 <span id="login">
-<h1>[LOG-IN]</h1>
+<h3>[LOG-IN]</h3>
 </span>
 </div>
 
@@ -25,6 +25,7 @@
 <li><a href="/champions_list">Campeones</a></li>
 </ul>
 </div>
+
 <div id="content">
 	
 	<h1 id="title">Sección {{sectionName}}</h1 id="title">
@@ -38,6 +39,20 @@
  	<tr>
  	<td>{{-index}}</td>
  	<td> <a href="/{{sectionID}}?name={{.}}">{{.}}</a></td>
+ 	<td>{{#isTournamentsList}}
+ 	{{/isTournamentsList}}</td>
+ 	
+ 	<td>{{#isTeamsList}}
+ 	Botones Teams
+ 	{{/isTeamsList}}</td>
+ 	
+ 	<td>{{#isPlayersList}}
+ 	Botones Players
+ 	{{/isPlayersList}}</td>
+ 	
+ 	<td>{{#isChampionsList}}
+ 	Botones Champions
+ 	{{/isChampionsList}}</td>
  	</tr>
  	{{/items}}
  	</table id="generic_list">	

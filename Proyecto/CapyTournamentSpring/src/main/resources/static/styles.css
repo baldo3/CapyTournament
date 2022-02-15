@@ -1,6 +1,15 @@
+body{
+	
+	 margin:0;
+	 background: #474B4E
+}
+
 #top_bar_2 ul{
+	padding: 10px 7px 10px 7px;
+	background: black;
    list-style-type: none;
    text-align: center;
+   margin:0;
 }
 #top_bar_2 li{
    display: inline;
@@ -8,13 +17,56 @@
    margin: 0 10px 0 0;
 }
 #top_bar_2 li a {
-   padding: 2px 7px 2px 7px;
-   color: red;
-   background-color: #eeeeee;
-   border: 1px solid #ccc;
+	padding: 2px 7px 2px 7px;
+   color: black;
+   background-color: orange;
+   border: 1px solid dimgray;
    text-decoration: none;
 }
 #top_bar_2 li a:hover{
    background-color: #333333;
    color: #ffffff;
    }
+   
+#logo{
+	display: inline-block;
+	color: orange;
+}
+
+#login{
+	color: white;
+	float: right;
+}
+
+#top_bar_1{
+	background: rebeccapurple;
+}
+
+#content{
+	background: #474B4E
+}
+
+#content p{
+	color: white;
+}
+
+#content a{
+	color:orange;
+}
+
+#content h1{
+	color: #CE93E8;
+}
+
+#content h2{
+	color: white;
+}
+
+#content h3{
+	color: white;
+}
+
+#content td{
+	color: white;
+}
+}

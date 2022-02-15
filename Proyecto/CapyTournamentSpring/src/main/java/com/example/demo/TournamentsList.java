@@ -15,6 +15,7 @@ public class TournamentsList {
     	model.addAttribute("sectionName", "Torneos");
     	model.addAttribute("items", tournaments);
     	model.addAttribute("sectionID", "tournament");
+    	model.addAttribute("isTournamentsList", true);
     	return "list_template";
     }
 }

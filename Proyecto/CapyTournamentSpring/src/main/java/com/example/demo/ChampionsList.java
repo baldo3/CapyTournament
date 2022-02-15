@@ -15,6 +15,7 @@ public class ChampionsList {
     	model.addAttribute("sectionName", "Campeones");
     	model.addAttribute("items", champions);
     	model.addAttribute("sectionID", "champion");
+    	model.addAttribute("isChampionsList", true);
     	return "list_template";
     }
 }
