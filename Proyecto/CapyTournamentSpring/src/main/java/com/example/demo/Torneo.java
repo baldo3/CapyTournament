@@ -26,4 +26,15 @@ public class Torneo {
  @Enumerated(EnumType.STRING)
  private FormatosRepository formato;
  
+ protected Torneo() {};
+
+ public Torneo(Long id, String nombre, EstadosRepository estado, FormatosRepository formato) {
+		this.id = id;
+		this.nombre = nombre;
+		this.estado = estado;
+		this.formato = formato;
+ }
+ 
+ 
+ 
 }
