@@ -1,4 +1,4 @@
-package com.example.demo;
+/*package com.example.demo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,11 +20,11 @@ public class Torneo {
  
  @Column(name="ESTADO", length=20, nullable=false, unique=false)
  @Enumerated(EnumType.STRING)
- private Estados estado;
+ private EstadosRepository estado;
  
  @Column(name="FORMATO", length=20, nullable=false, unique=false)
  @Enumerated(EnumType.STRING)
- private Formatos formato;
+ private FormatosRepository formato;
  
  
-}
+}*/
