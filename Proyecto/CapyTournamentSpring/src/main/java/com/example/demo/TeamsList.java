@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TeamsList {
@@ -20,7 +22,14 @@ public class TeamsList {
     }
 	
 	@GetMapping("/create_team")
-	public String createTeam(Model model) {
+	public String teamForm(Model model) {
+		System.out.println("Crear equipo:");
 		return "create_team_template";
 	}
+	
+	/*@PostMapping("/create_team")
+	public String teamPost(Model model, @RequestParam String name){
+		System.out.println(name);
+		return "create_team_template";
+	}*/
 }

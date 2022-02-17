@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -17,4 +18,11 @@ public class Team {
     	model.addAttribute("players", players);
     	return "team_template";
     }
+	
+	@PostMapping("/team")
+	public String teamPost(Model model, @RequestParam String name){
+		//AÑADIRLO A LA BD
+		model.addAttribute("name", name);
+		return "team_template";
+	}
 }
