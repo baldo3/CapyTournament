@@ -34,6 +34,10 @@
 	<p id="description">{{description}}</p>
 	{{/hasDescription}}
 	
+	{{#isTeamsList}}
+	<form action="create_team"><input type='submit' class="player" value='Crear equipo'/></form>
+	{{/isTeamsList}}
+	
 	<table id="generic_list">
 	{{#items}}
  	<tr>
@@ -43,7 +47,7 @@
  	{{/isTournamentsList}}</td>
  	
  	<td>{{#isTeamsList}}
- 	Botones Teams
+ 	<form action="create_team"><input type='submit' value='Unirse'/></form>
  	{{/isTeamsList}}</td>
  	
  	<td>{{#isPlayersList}}

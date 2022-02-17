@@ -18,4 +18,9 @@ public class TeamsList {
     	model.addAttribute("isTeamsList", true);
     	return "list_template";
     }
+	
+	@GetMapping("/create_team")
+	public String createTeam(Model model) {
+		return "create_team_template";
+	}
 }

@@ -1,4 +1,4 @@
-/*package com.example.demo;
+package com.example.demo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,5 +26,4 @@ public class Torneo {
  @Enumerated(EnumType.STRING)
  private FormatosRepository formato;
  
- 
-}*/
+}
