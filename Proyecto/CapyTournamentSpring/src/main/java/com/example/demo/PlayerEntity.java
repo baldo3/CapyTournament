@@ -22,8 +22,8 @@ public class PlayerEntity {
 	@Column(name="WINRATE_JUGADOR", nullable=false, unique=false)
 	private int winrate=0;
 	
-	@Column(name="MAIN", nullable=true, unique=false)
-	private ChampionEntity main;
+	//@Column(name="MAIN", nullable=true, unique=false)
+	//private ChampionEntity main;
 	
 	@Column(name="ESTADO", length=240, nullable=true, unique=false)
 	private String estado= "";
@@ -31,14 +31,14 @@ public class PlayerEntity {
 	protected PlayerEntity(){}
 
 	public PlayerEntity(String nombre, String email, String contrasenia, String nombreCliente, int winrate,
-			ChampionEntity main, String estado) {
+			/*ChampionEntity main,*/ String estado) {
 		super();
 		this.nombre = nombre;
 		this.email = email;
 		this.contrasenia = contrasenia;
 		this.nombreCliente = nombreCliente;
 		this.winrate = winrate;
-		this.main = main;
+		//this.main = main;
 		this.estado = estado;
 	}
 	

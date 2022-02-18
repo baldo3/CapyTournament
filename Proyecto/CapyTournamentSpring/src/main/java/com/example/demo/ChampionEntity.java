@@ -6,14 +6,19 @@ import javax.persistence.Id;
 
 @Entity
 public class ChampionEntity {
-	//atributos 
+
 	@Id
 	@Column(name="NOMBRE_CAMPEON", length=50, nullable=false, unique=true)
-	private String nombre;
+	private String name;
 	
 	protected ChampionEntity() {}
-	public ChampionEntity(String nombre) {
+	
+	public ChampionEntity(String name) {
 		super();
-		this.nombre = nombre;
+		this.name = name;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 }
