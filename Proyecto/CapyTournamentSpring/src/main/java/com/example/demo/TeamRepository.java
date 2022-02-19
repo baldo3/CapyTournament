@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TeamRepository extends JpaRepository <TeamEntity,String>{
-	List<TeamEntity> findByNombre(String nombre);
+	List<TeamEntity> findByName(String name);
 	void deleteById(String id);
 	
 	Optional<TeamEntity> findById(String id);

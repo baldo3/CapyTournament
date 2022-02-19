@@ -26,10 +26,6 @@ package com.example.demo;
 	    public void deleteChampionById(String id){
 			repository.deleteById(id);
 		}
-	    
-	    /*public void deleteChampionByName(String name){
-			repository.deleteByName(name);
-		}*/
 
 	    @Override
 	    public void run(String... args) throws Exception {

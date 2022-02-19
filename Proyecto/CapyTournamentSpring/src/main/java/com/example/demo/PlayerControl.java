@@ -1,7 +1,8 @@
 package com.example.demo;
 	import java.util.List;
+import java.util.Optional;
 
-	import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 	import org.springframework.boot.CommandLineRunner;
 	import org.springframework.stereotype.Service;
 
@@ -9,27 +10,31 @@ package com.example.demo;
 	public class PlayerControl implements CommandLineRunner {
 
 	    @Autowired
-	    private ChampionRepository repository;
+	    private PlayerRepository repository;
 	    public PlayerControl() {
 	    }
 
-	    public void newChampion(String name) {
-	        ChampionEntity newChamp= new ChampionEntity(name);
-	        repository.save(newChamp);
+	    public void newPlayer(String name) {
+	        PlayerEntity newPlayer= new PlayerEntity(name);
+	        repository.save(newPlayer);
 	    }
 	    
-	    public List<ChampionEntity> findAllChampions(){
-	        List<ChampionEntity> championsList= repository.findAll();
-	        return championsList;
+	    public void newPlayer(PlayerEntity player) {
+	    	repository.save(player);
 	    }
 	    
-	    public void deleteChampionById(String id){
+	    public List<PlayerEntity> findAllPlayers(){
+	        List<PlayerEntity> playersList= repository.findAll();
+	        return playersList;
+	    }
+	    
+	    public void deletePlayerById(String id){
 			repository.deleteById(id);
 		}
 	    
-	    /*public void deleteChampionByName(String name){
-			repository.deleteByName(name);
-		}*/
+	    public Optional<PlayerEntity> findPlayerById(String id){
+	    	return repository.findById(id);
+	    }
 
 	    @Override
 	    public void run(String... args) throws Exception {

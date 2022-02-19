@@ -5,7 +5,8 @@ body{
 }
 
 form{
-	margin: 0; 
+	margin: 0;
+    display: inline-block;
 }
 
 #top_bar_2 ul{

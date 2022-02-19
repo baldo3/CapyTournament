@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -43,17 +44,43 @@ public class Team implements CommandLineRunner{
 	}
 	
 	@GetMapping("/teams_list")
-    public String sayHello(Model model) {
+    public String visitTeamsList(Model model) {
+		List<TeamEntity> teams = control.findAllTeams();
     	model.addAttribute("sectionName", "Equipos");
     	model.addAttribute("sectionID", "team");
+    	model.addAttribute("items", teams);
     	model.addAttribute("isTeamsList", true);
     	return "list_template";
     }
 	
 	@GetMapping("/create_team")
 	public String teamForm(Model model) {
-		System.out.println("Crear equipo:");
 		return "create_team_template";
+	}
+	
+	@PostMapping("/delete_team/{id}")
+	public String visitTeamsListAfterDelete(Model model, @PathVariable String id) {
+		control.deleteTeamById(id);
+		//TODOS LOS JUGADORES QUE SE QUEDEN SIN EQUIPO CAMBIAN SU STATUS A LIBRE
+		List<TeamEntity> teams = control.findAllTeams();
+    	model.addAttribute("sectionName", "Equipos");
+    	model.addAttribute("sectionID", "team");
+    	model.addAttribute("items", teams);
+    	model.addAttribute("isTeamsList", true);
+    	
+		return "list_template";
+	}
+	
+	@PostMapping("/join_team/{id}")
+	public String visitTeamAfterJoin(Model model, @PathVariable String id) {
+		//Optional<TeamEntity> team = control.findTeamById(name);
+		List<TeamEntity> teams = control.findAllTeams();
+    	model.addAttribute("sectionName", "Equipos");
+    	model.addAttribute("sectionID", "team");
+    	model.addAttribute("items", teams);
+    	model.addAttribute("isTeamsList", true);
+    	
+		return "list_template";
 	}
 	
 	@Override

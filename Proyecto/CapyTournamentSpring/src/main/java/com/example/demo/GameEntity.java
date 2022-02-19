@@ -1,4 +1,4 @@
-package com.example.demo;
+/*package com.example.demo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,14 +23,14 @@ public class GameEntity {
 	private String estado;
 	
 	@ManyToOne
-	private TorneoEntity torneo;
+	private TournamentEntity torneo;
 	
 	@OneToMany
 	private List<TeamEntity> teams;
 	
 	protected GameEntity(){}
 
-	public GameEntity(Long id, LocalDate fecha, String estado, TorneoEntity torneo, List<TeamEntity> teams) {
+	public GameEntity(Long id, LocalDate fecha, String estado, TournamentEntity torneo, List<TeamEntity> teams) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -43,4 +43,4 @@ public class GameEntity {
 	
 	
 	
-}
+}*/

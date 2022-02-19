@@ -1,4 +1,5 @@
 package com.example.demo;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ public class TeamEntity {
 	//atributos 
 	@Id
 	@Column(name="NOMBRE_EQUIPO", length=50, nullable=false, unique=true)
-	private String nombre;
+	private String name;
 	
 	//incluir info del capitan cuando cree jugador
 	@Column(name="WINRATE", nullable=false, unique=false)
@@ -37,13 +38,24 @@ public class TeamEntity {
 	private int assists = 0;
 	
 	@OneToMany(mappedBy = "team")
-	private List<PlayerEntity> players;
+	private List<PlayerEntity> players = new ArrayList<>();
 	
 	//constructor
 	protected TeamEntity() {}
+	
+	public TeamEntity(String name, String motto) {
+		this.name = name;
+		this.winrate = 0;
+		this.motto = motto;
+		this.victorias = 0;
+		this.derrotas = 0;
+		this.kills = 0;
+		this.deaths = 0;
+		this.assists = 0;
+	}
 
-	public TeamEntity(String nombre, float winrate, String motto, int victorias, int derrotas, int kills, int deaths, int assists) {
-		this.nombre = nombre;
+	public TeamEntity(String name, float winrate, String motto, int victorias, int derrotas, int kills, int deaths, int assists) {
+		this.name = name;
 		this.winrate = winrate;
 		this.motto = motto;
 		this.victorias = victorias;
@@ -53,12 +65,12 @@ public class TeamEntity {
 		this.assists = assists;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public float getWinrate() {
@@ -119,6 +131,20 @@ public class TeamEntity {
 	
 	public String getMotto() {
 		return this.motto;
+	}
+	
+	public void addPlayer(PlayerEntity player) {
+		if(this.players.size() >= 5)
+			return;
+		this.players.add(player);
+		player.setStatus("ON TEAM");
+		player.setTeam(this);
+	}
+	
+	public void removePlayer(PlayerEntity player) {
+		this.players.remove(player);
+		player.setStatus("FREE");
+		player.setTeam(this);
 	}
 	
 

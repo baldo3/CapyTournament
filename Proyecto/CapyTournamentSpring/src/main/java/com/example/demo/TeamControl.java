@@ -20,6 +20,18 @@ package com.example.demo;
 	        repository.save(newTeam);
 	    }
 	    
+	    public void newTeam(TeamEntity team) {
+	        repository.save(team);
+	    }
+	    
+	    public void joinTeam(TeamEntity team, PlayerEntity player) {
+	    	team.addPlayer(player);
+	    }
+	    
+	    public void leaveTeam(TeamEntity team, PlayerEntity player) {
+	    	team.removePlayer(player);
+	    }
+	    
 	    public List<TeamEntity> findAllTeams(){
 	        List<TeamEntity> teamsList= repository.findAll();
 	        return teamsList;
