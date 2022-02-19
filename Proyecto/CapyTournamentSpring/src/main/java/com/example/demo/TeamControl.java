@@ -45,6 +45,10 @@ package com.example.demo;
 	     return repository.findById(id);
 	    }
 	    
+	    public void deleteTeam(TeamEntity team) {
+	    	repository.delete(team);
+	    }
+	    
 	    //public Player
 
 	    @Override

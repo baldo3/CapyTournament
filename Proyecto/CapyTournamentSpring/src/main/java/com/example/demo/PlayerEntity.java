@@ -40,7 +40,7 @@ public class PlayerEntity {
 		this.password = "";
 		this.nombreCliente = "";
 		this.winrate = 0;
-		this.status = "";
+		this.status = "FREE";
 	}
 	
 	public PlayerEntity(String name, String email, String password, String nombreCliente, int winrate, String status) {
@@ -67,6 +67,10 @@ public class PlayerEntity {
 	
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 	
 	

@@ -35,6 +35,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 	    public Optional<PlayerEntity> findPlayerById(String id){
 	    	return repository.findById(id);
 	    }
+	    
+	    public void savePlayer(PlayerEntity player) {
+	    	repository.save(player);
+	    }
 
 	    @Override
 	    public void run(String... args) throws Exception {

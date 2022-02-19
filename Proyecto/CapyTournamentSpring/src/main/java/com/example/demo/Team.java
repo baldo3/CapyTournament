@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,9 @@ public class Team implements CommandLineRunner{
 	
 	@Autowired
 	 private TeamControl control;
+	
+	@Autowired
+	private PlayerControl playerControl;
 	
 	@GetMapping("/team")
     public String sayHello(Model model, @RequestParam String name) {
@@ -44,8 +49,19 @@ public class Team implements CommandLineRunner{
 	}
 	
 	@GetMapping("/teams_list")
-    public String visitTeamsList(Model model) {
+    public String visitTeamsList(Model model, HttpSession session) {
 		List<TeamEntity> teams = control.findAllTeams();
+		PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
+		boolean playerFree;
+		switch(player.getStatus()) {
+		case "FREE":
+			playerFree = true;
+			break;
+		default:
+			playerFree = false;
+			break;
+		}
+		model.addAttribute("playerFree", playerFree);
     	model.addAttribute("sectionName", "Equipos");
     	model.addAttribute("sectionID", "team");
     	model.addAttribute("items", teams);
@@ -59,28 +75,49 @@ public class Team implements CommandLineRunner{
 	}
 	
 	@PostMapping("/delete_team/{id}")
-	public String visitTeamsListAfterDelete(Model model, @PathVariable String id) {
+	public String visitTeamsListAfterDelete(Model model, @PathVariable String id, HttpSession session) {
+		TeamEntity t = control.findTeamById(id).orElseThrow();
+		
+		t.getPlayers().forEach((p)->{
+			p.setTeam(null);
+			playerControl.savePlayer(p);
+			});
+
 		control.deleteTeamById(id);
-		//TODOS LOS JUGADORES QUE SE QUEDEN SIN EQUIPO CAMBIAN SU STATUS A LIBRE
+		
 		List<TeamEntity> teams = control.findAllTeams();
+		PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
+		boolean playerFree;
+		switch(player.getStatus()) {
+		case "FREE":
+			playerFree = true;
+			break;
+		default:
+			playerFree = false;
+			break;
+		}
+		model.addAttribute("playerFree", playerFree);
     	model.addAttribute("sectionName", "Equipos");
     	model.addAttribute("sectionID", "team");
     	model.addAttribute("items", teams);
     	model.addAttribute("isTeamsList", true);
-    	
-		return "list_template";
+    	return "list_template";
 	}
 	
 	@PostMapping("/join_team/{id}")
-	public String visitTeamAfterJoin(Model model, @PathVariable String id) {
-		//Optional<TeamEntity> team = control.findTeamById(name);
-		List<TeamEntity> teams = control.findAllTeams();
-    	model.addAttribute("sectionName", "Equipos");
-    	model.addAttribute("sectionID", "team");
-    	model.addAttribute("items", teams);
-    	model.addAttribute("isTeamsList", true);
-    	
-		return "list_template";
+	public String visitTeamAfterJoin(Model model, @PathVariable String id, HttpSession session) {
+		control.joinTeam(control.findTeamById(id).get(), (PlayerEntity) session.getAttribute("CurrentUser"));
+		Optional<TeamEntity> team = control.findTeamById(id);
+    	model.addAttribute("name", id);
+    	List<PlayerEntity> players = null;
+    	String motto = "";
+    	if(team.isPresent()) {
+    		players = team.get().getPlayers();
+    		motto = team.get().getMotto();
+    	}
+    	model.addAttribute("players", players);
+    	model.addAttribute("description", motto);
+    	return "team_template";
 	}
 	
 	@Override

@@ -24,7 +24,8 @@ public class Home {
 	
 	@GetMapping("/home")
     public String sayHello(Model model, HttpSession session) {
-		String homeText = new String("Texto de ejemplo del inicio de relleno bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla");
+		String homeText = new String("CapyTournament es tu herramienta de creación de torneos, de amateurs para amateurs.\r\n"
+				+ "¡Crea tu equipo, inscríbete a un torneo y compite!");
     	model.addAttribute("sectionName", "Inicio");
     	model.addAttribute("description", homeText);
     	model.addAttribute("hasDescription", true);
@@ -42,6 +43,7 @@ public class Home {
 		TeamEntity team;
 		
 		team = new TeamEntity("Los Gatos Gordos", "Miau, miau...");
+		teamControl.newTeam(team);
 		
 		player = new PlayerEntity("BaldoRA");
 		teamControl.joinTeam(team, player);
@@ -63,9 +65,8 @@ public class Home {
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
-		teamControl.newTeam(team);
-		
 		team = new TeamEntity("Los Capybaras", "Somos todos amigos");
+		teamControl.newTeam(team);
 		
 		player = new PlayerEntity("System");
 		teamControl.joinTeam(team, player);
@@ -75,11 +76,15 @@ public class Home {
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
-		player = new PlayerEntity("System2");
+		player = new PlayerEntity("Jax11");
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
 		player = new PlayerEntity("Nahuel");
+		teamControl.joinTeam(team, player);
+		playerControl.newPlayer(player);
+		
+		player = new PlayerEntity("Eduardo");
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
