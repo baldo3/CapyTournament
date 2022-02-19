@@ -28,6 +28,10 @@ package com.example.demo;
 	    	team.addPlayer(player);
 	    }
 	    
+	    public void saveTeam(TeamEntity team) {
+	    	repository.save(team);
+	    }
+	    
 	    public void leaveTeam(TeamEntity team, PlayerEntity player) {
 	    	team.removePlayer(player);
 	    }

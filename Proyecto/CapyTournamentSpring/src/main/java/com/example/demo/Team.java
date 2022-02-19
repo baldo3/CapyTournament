@@ -106,7 +106,11 @@ public class Team implements CommandLineRunner{
 	
 	@PostMapping("/join_team/{id}")
 	public String visitTeamAfterJoin(Model model, @PathVariable String id, HttpSession session) {
-		control.joinTeam(control.findTeamById(id).get(), (PlayerEntity) session.getAttribute("CurrentUser"));
+		TeamEntity t = control.findTeamById(id).get();
+		PlayerEntity p = (PlayerEntity) session.getAttribute("CurrentUser");
+		control.joinTeam(t, p);
+		control.saveTeam(t);
+		playerControl.savePlayer(p);
 		Optional<TeamEntity> team = control.findTeamById(id);
     	model.addAttribute("name", id);
     	List<PlayerEntity> players = null;
