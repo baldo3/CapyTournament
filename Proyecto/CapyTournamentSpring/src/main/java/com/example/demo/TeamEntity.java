@@ -1,7 +1,10 @@
 package com.example.demo;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class TeamEntity {
@@ -16,7 +19,7 @@ public class TeamEntity {
 	private float winrate = 0;
 	
 	@Column(name="LEMA",length=140, nullable=true, unique=false)
-	private String lema;
+	private String motto;
 	
 	@Column(name="VICTORIAS_EQUIPO", nullable=false, unique=false)
 	private int victorias = 0;
@@ -33,13 +36,16 @@ public class TeamEntity {
 	@Column(name="ASSIST_STAT", nullable=false, unique=false)
 	private int assists = 0;
 	
+	@OneToMany(mappedBy = "team")
+	private List<PlayerEntity> players;
+	
 	//constructor
 	protected TeamEntity() {}
 
-	public TeamEntity(String nombre, float winrate, String lema, int victorias, int derrotas, int kills, int deaths, int assists) {
+	public TeamEntity(String nombre, float winrate, String motto, int victorias, int derrotas, int kills, int deaths, int assists) {
 		this.nombre = nombre;
 		this.winrate = winrate;
-		this.lema = lema;
+		this.motto = motto;
 		this.victorias = victorias;
 		this.derrotas = derrotas;
 		this.kills = kills;
@@ -63,12 +69,8 @@ public class TeamEntity {
 		this.winrate = winrate;
 	}
 
-	public String getLema() {
-		return lema;
-	}
-
-	public void setLema(String lema) {
-		this.lema = lema;
+	public void setMotto(String motto) {
+		this.motto = motto;
 	}
 
 	public int getVictorias() {
@@ -110,6 +112,14 @@ public class TeamEntity {
 	public void setAssists(int assists) {
 		this.assists = assists;
 	};
+	
+	public List<PlayerEntity> getPlayers(){
+		return this.players;
+	}
+	
+	public String getMotto() {
+		return this.motto;
+	}
 	
 
 }

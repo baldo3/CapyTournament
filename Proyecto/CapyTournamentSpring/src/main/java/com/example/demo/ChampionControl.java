@@ -6,11 +6,11 @@ package com.example.demo;
 	import org.springframework.stereotype.Service;
 
 	@Service
-	public class ControlChampion implements CommandLineRunner {
+	public class ChampionControl implements CommandLineRunner {
 
 	    @Autowired
 	    private ChampionRepository repository;
-	    public ControlChampion() {
+	    public ChampionControl() {
 	    }
 
 	    public void newChampion(String name) {

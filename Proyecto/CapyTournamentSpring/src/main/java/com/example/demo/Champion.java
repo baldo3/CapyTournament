@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class Champion implements CommandLineRunner{
 	
 	@Autowired
-	 private ControlChampion control;
+	 private ChampionControl control;
 	
 	@GetMapping("/champion")
     public String visitChampion(Model model, @RequestParam String name) {
-        List<String> players= Arrays.asList("Claudia","Javi","Nacho","Baldo","Rober");
     	model.addAttribute("name", name);
-    	model.addAttribute("players", players);
     	return "champion_template";
     }
 	
@@ -47,7 +45,6 @@ public class Champion implements CommandLineRunner{
 	
 	@GetMapping("/create_champion")
 	public String visitCreateChampion(Model model) {
-		System.out.println("Crear campeón:");
 		return "create_champion_template";
 	}
 	
@@ -55,7 +52,6 @@ public class Champion implements CommandLineRunner{
 		public String visitChampionListAfterDelete(Model model, @PathVariable String id) {
 			control.deleteChampionById(id);
 			List<ChampionEntity> champions = control.findAllChampions();
-			System.out.println("Campeón borrado");
 			model.addAttribute("sectionName", "Campeones");
 	    	model.addAttribute("items", champions);
 	    	model.addAttribute("sectionID", "champion");

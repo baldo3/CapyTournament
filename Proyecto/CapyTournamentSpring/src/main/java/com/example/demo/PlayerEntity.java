@@ -3,6 +3,7 @@ package com.example.demo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class PlayerEntity {
@@ -25,6 +26,9 @@ public class PlayerEntity {
 	//@Column(name="MAIN", nullable=true, unique=false)
 	//private ChampionEntity main;
 	
+	@ManyToOne
+	private TeamEntity team;
+	
 	@Column(name="ESTADO", length=240, nullable=true, unique=false)
 	private String estado= "";
 	
@@ -40,6 +44,14 @@ public class PlayerEntity {
 		this.winrate = winrate;
 		//this.main = main;
 		this.estado = estado;
+	}
+	
+	public void setTeam(TeamEntity team) {
+		this.team = team;
+	}
+	
+	public TeamEntity getTeam() {
+		return this.team;
 	}
 	
 	

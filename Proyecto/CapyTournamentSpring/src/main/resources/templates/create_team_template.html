@@ -1,39 +1,13 @@
-<html>
-<head>
-<title>Capy Tournament</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-
-<div id="top_bar_1">
-<span id="logo">
-<h1>CAPY TOURNAMENT</h1>
-</span>
-
-<span id="login">
-<h3>[LOG-IN]</h3>
-</span>
-</div>
-
-<div id="top_bar_2">
-<ul>
-<li><a href="/home">Inicio</a></li>
-<li><a href="/tournaments_list">Torneos</a></li>
-<li><a href="/teams_list">Equipos</a></li>
-<li><a href="/players_list">Jugadores</a></li>
-<li><a href="/champions_list">Campeones</a></li>
-</ul>
-</div>
+{{>header}}
 <div id="content">
-	<p>>Introduzca el nombre del equipo</p>
 	<form action="team" method="POST">
+	<p>>Introduzca el nombre del equipo</p>
 	<input type='text' name='name'/>
+	<p>>Introduzca el lema del equipo</p>
+	<input type='text' motto='motto'/>
 	<input type='submit' value='Confirmar'/>
 	</form action="team">
 </div>
-
-
 
 </body>
 </html>

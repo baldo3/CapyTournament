@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class TorneoEntity {
+public class TournamentEntity {
  @Id
  @GeneratedValue(strategy=GenerationType.AUTO)
  @Column(name="ID_TORNEO", nullable=false, unique=true)
@@ -26,9 +26,9 @@ public class TorneoEntity {
  @Enumerated(EnumType.STRING)
  private FormatosRepository formato;
  
- protected TorneoEntity() {};
+ protected TournamentEntity() {};
 
- public TorneoEntity(Long id, String nombre, EstadosRepository estado, FormatosRepository formato) {
+ public TournamentEntity(Long id, String nombre, EstadosRepository estado, FormatosRepository formato) {
 		this.id = id;
 		this.nombre = nombre;
 		this.estado = estado;
