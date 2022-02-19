@@ -17,4 +17,12 @@ public class Player {
     	model.addAttribute("players", players);
     	return "player_template";
     }
+	
+	@GetMapping("/players_list")
+    public String sayHello(Model model) {
+    	model.addAttribute("sectionName", "Jugadores");
+    	model.addAttribute("sectionID", "player");
+    	model.addAttribute("isPlayersList", true);
+    	return "list_template";
+}
 }

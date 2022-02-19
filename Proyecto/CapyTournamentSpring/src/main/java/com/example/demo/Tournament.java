@@ -18,4 +18,12 @@ public class Tournament {
     	model.addAttribute("players", players);
     	return "tournament_template";
     }
+	
+	@GetMapping("/tournaments_list")
+    public String sayHello(Model model) {       
+    	model.addAttribute("sectionName", "Torneos");
+    	model.addAttribute("sectionID", "tournament");
+    	model.addAttribute("isTournamentsList", true);
+    	return "list_template";
+    }
 }

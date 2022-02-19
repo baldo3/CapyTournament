@@ -1,31 +1,4 @@
-<html>
-<head>
-<link rel="stylesheet" href="styles.css">
-<title>Capy Tournament</title>
-</head>
-
-<body>
-
-<div id="top_bar_1">
-<span id="logo">
-<h1>CAPY TOURNAMENT</h1>
-</span>
-
-<span id="login">
-<h3>[LOG-IN]</h3>
-</span>
-</div>
-
-<div id="top_bar_2">
-<ul>
-<li><a href="/home">Inicio</a></li>
-<li><a href="/tournaments_list">Torneos</a></li>
-<li><a href="/teams_list">Equipos</a></li>
-<li><a href="/players_list">Jugadores</a></li>
-<li><a href="/champions_list">Campeones</a></li>
-</ul>
-</div>
-
+{{>header}}
 <div id="content">
 	
 	<h1 id="title">Sección {{sectionName}}</h1 id="title">
@@ -40,13 +13,13 @@
 	
 	{{#isChampionsList}}
 	<form action="create_champion"><input type='submit' create=true value='Crear campeón'/></form>
-	{{#isChampionsList}}
+	{{/isChampionsList}}
 	
 	<table id="generic_list">
 	{{#items}}
  	<tr>
  	<td>{{-index}}</td>
- 	<td> <a href="/{{sectionID}}?name={{.}}">{{.}}</a></td>
+ 	<td> <a href="{{sectionID}}?name={{name}}">{{name}}</a></td>
  	<td>{{#isTournamentsList}}
  	{{/isTournamentsList}}</td>
  	
@@ -59,7 +32,7 @@
  	{{/isPlayersList}}</td>
  	
  	<td>{{#isChampionsList}}
- 	<form action="create_champion"><input type='submit' value='Eliminar' create=false method="post"/></form>
+ 	<form action="/delete_champion/{{name}}" method="post"><input type='submit' value='Eliminar'/></form>
  	{{/isChampionsList}}</td>
  	</tr>
  	{{/items}}
