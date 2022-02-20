@@ -7,9 +7,22 @@
 	<p id="description">{{description}}</p>
 	{{/hasDescription}}
 	
-	<h3>Equipo:</h3>
+	<h2>Equipo:</h2>
+	{{#hasTeam}}
 	<a href="/team?name={{teamName}}">{{teamName}}</a>
-	<h2 id="stats">[ESTADÍSTICAS]</h2>
+	{{/hasTeam}}
+	{{^hasTeam}}
+	<p>{{teamName}}</p>
+	{{/hasTeam}}
+	
+	<div id="stats">
+	<h2>Estadísticas:</h2>
+	<p class="wip">[WIP: Gestionadas por el servicio interno]</p class="wip">
+	</div>
+	
+	<div id="buttons">
+	<form action="/delete_player/{{name}}" method="post"><input type='submit'  class="adminButton" value='Banear'/></form>
+	</div>
 	
 </div>
 

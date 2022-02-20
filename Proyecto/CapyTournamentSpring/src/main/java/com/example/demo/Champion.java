@@ -48,9 +48,9 @@ public class Champion implements CommandLineRunner{
 		return "create_champion_template";
 	}
 	
-	@PostMapping("/delete_champion/{id}")
-		public String visitChampionListAfterDelete(Model model, @PathVariable String id) {
-			control.deleteChampionById(id);
+	@PostMapping("/delete_champion/{name}")
+		public String visitChampionListAfterDelete(Model model, @PathVariable String name) {
+			control.deleteChampionById(name);
 			List<ChampionEntity> champions = control.findAllChampions();
 			model.addAttribute("sectionName", "Campeones");
 	    	model.addAttribute("items", champions);

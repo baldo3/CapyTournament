@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
@@ -23,15 +25,32 @@ public class Player implements CommandLineRunner{
 	@GetMapping("/player")
     public String visitPlayer(Model model, @RequestParam String name) {
 		Optional<PlayerEntity> player = control.findPlayerById(name);
-		String teamName = "SIN EQUIPO";
+		String teamName = "Sin equipo";
+		boolean hasTeam = false;
 		if(player.isPresent()) {
 			if(player.get().getTeam() != null) {
 				TeamEntity team = player.get().getTeam();
 				teamName = team.getName();
+				hasTeam = true;
 			}
 		}
+		model.addAttribute("hasTeam", hasTeam);
 		model.addAttribute("teamName", teamName);
     	model.addAttribute("name", name);
+    	return "player_template";
+    }
+	
+	@PostMapping("/leave_my_team")
+    public String visitPlayerAfterLeaveTeam(Model model, HttpSession session) {
+		PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
+		player.leaveTeam();
+		
+		control.savePlayer(player);
+		String teamName = "Sin equipo";
+		boolean hasTeam = false;
+		model.addAttribute("hasTeam", hasTeam);
+		model.addAttribute("teamName", teamName);
+    	model.addAttribute("name", player.getName());
     	return "player_template";
     }
 	
@@ -47,6 +66,7 @@ public class Player implements CommandLineRunner{
 	
 	@PostMapping("/delete_player/{id}")
 	public String visitPlayerListAfterDelete(Model model, @PathVariable String id) {
+		control.findPlayerById(id).get().leaveTeam();
 		control.deletePlayerById(id);
 		List<PlayerEntity> players = control.findAllPlayers();
     	model.addAttribute("sectionName", "Jugadores");

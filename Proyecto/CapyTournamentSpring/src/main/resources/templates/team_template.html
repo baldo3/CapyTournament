@@ -5,20 +5,35 @@
 	
 	<p id="description">{{description}}</p>
 	
+	<h2>Jugadores:</h2>
+	
 	<table id="players_list">
 	{{#players}}
  	<tr>
  	<td>{{-index}}</td>
- 	<td> <a href="/player?">{{name}}</a></td>
+ 	<td> <a href="/player?name={{name}}">{{name}}</a></td>
  	</tr>
  	{{/players}}
  	</table id="generic_list">
  	
- 	<h2 id="join_requests">[SOLICITUDES DE UNIÓN]</h2>
- 	
- 	<h2 id="current_tournament">[TORNEO ACTUAL]</h2>
- 	
- 	<h2 id="stats">[ESTADÍSTICAS]</h2>	
+ 	<h2>Torneo actual:</h2>
+ 	{{#hasTournament}}
+ 	<a href="/tournament?name={{tournament}}">{{tournament}}</a>
+ 	{{/hasTournament}}
+ 	{{^hasTournament}}
+ 	<p>Este equipo no está inscrito a ningún torneo</p>
+ 	{{/hasTournament}} 
+ 	 
+ 	<div id="stats">
+	<h2>Estadísticas:</h2>
+	<p class="wip">[WIP: Gestionadas por el servicio interno]</p class="wip">
+	</div>
+	
+	<div id="buttons">
+	<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>
+	{{#isMyTeam}}<form action="/leave_my_team" method="post"><input type='submit'  class="playerButton" value='Abandonar'/></form>{{/isMyTeam}}
+	{{#playerFree}}{{#available}}<form action="/join_team/{{name}}" method="post"><input type='submit'  class="playerButton" value='Unirse'/></form>{{/available}}{{/playerFree}}
+	</div>
 </div>
 
 

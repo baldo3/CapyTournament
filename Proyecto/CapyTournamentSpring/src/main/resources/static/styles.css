@@ -4,6 +4,38 @@ body{
 	 background: #474B4E
 }
 
+input[type=submit].playerButton{
+	background-color: #04AA6D;
+}
+
+input[type=submit]:hover.playerButton{
+	background-color: green;
+}
+
+input[type=submit].adminButton{
+	background-color: indianred;
+}
+
+input[type=submit]:hover.adminButton{
+	background-color: red;
+}
+
+input[type=submit].captainButton{
+	background-color: skyblue;
+}
+
+input[type=submit]:hover.captainButton{
+	background-color: dodgerblue;
+}
+
+input[type=submit].loginButton{
+	background-color: darkorange;
+}
+
+input[type=submit]:hover.loginButton{
+	background-color: orangered;
+}
+
 form{
 	margin: 0;
     display: inline-block;
@@ -36,11 +68,13 @@ form{
 #logo{
 	display: inline-block;
 	color: orange;
+	margin: 0 10px;
 }
 
 #login{
 	color: white;
 	float: right;
+	margin: 20px 10px;
 }
 
 #top_bar_1{
@@ -48,7 +82,8 @@ form{
 }
 
 #content{
-	background: #474B4E
+	background: #474B4E;
+	margin: 0 7px;
 }
 
 #content p{
@@ -73,4 +108,14 @@ form{
 
 #content td{
 	color: white;
+}
+
+p.wip{
+	margin: 0;
+	display: inline-block;
+	background-color:darkblue;
+}
+
+#buttons{
+	margin: 10px 0;
 }

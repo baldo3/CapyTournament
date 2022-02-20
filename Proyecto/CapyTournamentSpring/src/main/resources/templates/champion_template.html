@@ -7,7 +7,14 @@
 	<p id="description">{{description}}</p>
 	{{/hasDescription}}
 	
-	<h2 id="stats">[ESTADÍSTICAS]</h2>
+	<div id="stats">
+	<h2>Estadísticas:</h2>
+	<p class="wip">[WIP: Gestionadas por el servicio interno]</p class="wip">
+	</div>
+	
+	<div id="buttons">
+	<form action="/delete_champion/{{name}}" method="post"><input type='submit' class="adminButton" value='Eliminar'/></form>
+	</div>
 	
 </div>
 

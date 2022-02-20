@@ -57,6 +57,15 @@ public class PlayerEntity {
 		this.team = team;
 	}
 	
+	public void leaveTeam() {
+		if(this.team == null) {
+			return;
+		}
+		this.team.setAvailable(true);
+		this.team = null;
+		this.status = "FREE";
+	}
+	
 	public TeamEntity getTeam() {
 		return this.team;
 	}

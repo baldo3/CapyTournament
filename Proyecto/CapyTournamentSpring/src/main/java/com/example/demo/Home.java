@@ -22,6 +22,9 @@ public class Home {
 	@Autowired
     private PlayerControl playerControl;
 	
+	@Autowired
+	private TournamentControl tournamentControl;
+	
 	@GetMapping("/home")
     public String sayHello(Model model, HttpSession session) {
 		String homeText = new String("CapyTournament es tu herramienta de creación de torneos, de amateurs para amateurs.\r\n"
@@ -29,6 +32,7 @@ public class Home {
     	model.addAttribute("sectionName", "Inicio");
     	model.addAttribute("description", homeText);
     	model.addAttribute("hasDescription", true);
+    	model.addAttribute("hasImage", true);
     	
     	Optional<PlayerEntity> player = playerControl.findPlayerById("Usuario");
     	if(player.isPresent()) {
@@ -39,8 +43,15 @@ public class Home {
 	
 	@PostConstruct
     public void init() {
+		playerControl.newPlayer("Usuario");
+		
 		PlayerEntity player;
 		TeamEntity team;
+		TeamEntity team2;
+		TournamentEntity tournament;
+		
+		//tournament = new TournamentEntity("Copa pistón");
+		//tournamentControl.newTournament(tournament);
 		
 		team = new TeamEntity("Los Gatos Gordos", "Miau, miau...");
 		teamControl.newTeam(team);
@@ -65,34 +76,48 @@ public class Home {
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
-		team = new TeamEntity("Los Capybaras", "Somos todos amigos");
-		teamControl.newTeam(team);
+		teamControl.saveTeam(team);
+		//tournamentControl.joinTournament(tournament, team);
+		
+		team2 = new TeamEntity("Los Capybaras", "Somos todos amigos");
+		teamControl.newTeam(team2);
 		
 		player = new PlayerEntity("System");
-		teamControl.joinTeam(team, player);
+		teamControl.joinTeam(team2, player);
 		playerControl.newPlayer(player);
 		
 		player = new PlayerEntity("Rick");
-		teamControl.joinTeam(team, player);
+		teamControl.joinTeam(team2, player);
 		playerControl.newPlayer(player);
 		
 		player = new PlayerEntity("Jax11");
-		teamControl.joinTeam(team, player);
+		teamControl.joinTeam(team2, player);
 		playerControl.newPlayer(player);
 		
 		player = new PlayerEntity("Nahuel");
-		teamControl.joinTeam(team, player);
+		teamControl.joinTeam(team2, player);
 		playerControl.newPlayer(player);
 		
 		player = new PlayerEntity("Eduardo");
-		teamControl.joinTeam(team, player);
+		teamControl.joinTeam(team2, player);
 		playerControl.newPlayer(player);
 		
-		teamControl.newTeam(team);
+		teamControl.newTeam(team2);
 		
-		playerControl.newPlayer("Usuario");
-
-        teamControl.newTeam("Noche Fuerte", "A partir de las 3amse juega mejor");
+		tournament = new TournamentEntity("Copa pistón", team, team2);
+		System.out.println("1.- Tournament: " + tournament.getName() + "| teams: " + tournament.getTeams());
+		tournamentControl.saveTournament(tournament);
+		
+		teamControl.newTeam(team);
+		teamControl.newTeam(team2);
+		tournamentControl.newTournament(tournament);
+		//tournamentControl.joinTournament(tournament, team);
+		//System.out.println("1.- Tournament: " + tournament.getName() + "| teams: " + tournament.getTeams());
+		//tournamentControl.saveTournament(tournament);
+		//tournament = tournamentControl.findTournamentByName("Copa pistón");
+		//System.out.println("2.- Tournament: " + tournament.getName() + "| teams: "  + tournament.getTeams());
+		
+        teamControl.newTeam("Noche Fuerte", "A partir de las 3am se juega mejor");
 		
 		championControl.newChampion("Aatrox");
         championControl.newChampion("Ahri");
@@ -100,6 +125,8 @@ public class Home {
         championControl.newChampion("Akshan");
         championControl.newChampion("Alistar");
         championControl.newChampion("Amumu");
+        
+        tournamentControl.newTournament("Superliga Blue");
 	}
 	
 }

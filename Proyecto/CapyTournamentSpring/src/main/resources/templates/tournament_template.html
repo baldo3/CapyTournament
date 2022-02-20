@@ -3,12 +3,21 @@
 	
 	<h1 id="title">Torneo {{name}}</h1 id="title">
 	
-	{{#hasDescription}}
-	<p id="description">{{description}}</p>
-	{{/hasDescription}}
-	
-	<div id="chart">
-	<h2>[Cuadro del torneo]</h2>
+	<h2>Participantes:</h2>
+	<table id="teams_list">
+	{{#teams}}
+ 	<tr>
+ 	<td>{{-index}}</td>
+ 	<td> <a href="/team?name={{name}}">{{name}}</a></td>
+ 	<td>| puntos: </td>
+ 	<td>{{points}}</td>
+ 	</tr>
+ 	{{/teams}}
+ 	</table>
+ 	
+ 	<div id="stats">
+	<h2>Resultados:</h2>
+	<p class="wip">[WIP: Gestionadas por el servicio interno]</p class="wip">
 	</div>
 	
 </div>

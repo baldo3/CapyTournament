@@ -16,7 +16,6 @@ package com.example.demo;
 
 	    public void newTeam(String name, String motto) {
 	        TeamEntity newTeam = new TeamEntity(name, 0, motto, 0, 0, 0, 0, 0);
-	        //Añadir al jugador actual como capitán
 	        repository.save(newTeam);
 	    }
 	    

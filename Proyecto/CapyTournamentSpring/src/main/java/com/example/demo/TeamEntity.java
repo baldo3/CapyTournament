@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -40,6 +41,14 @@ public class TeamEntity {
 	
 	@OneToMany(mappedBy = "team")
 	private List<PlayerEntity> players = new ArrayList<>();
+	
+	@ManyToOne
+	private TournamentEntity tournament;
+	
+	private boolean available = true;
+	
+	@Column(name="POINTS")
+	private int points = 0;
 	
 	//constructor
 	protected TeamEntity() {}
@@ -140,13 +149,43 @@ public class TeamEntity {
 		this.players.add(player);
 		player.setStatus("ON TEAM");
 		player.setTeam(this);
+		
+		if(this.players.size() >= 5)
+			available = false;
 	}
 	
 	public void removePlayer(PlayerEntity player) {
 		this.players.remove(player);
 		player.setStatus("FREE");
-		player.setTeam(this);
+		player.setTeam(null);
+		available = true;
 	}
 	
-
+	public boolean isAvailable() {
+		return this.available;
+	}
+	
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+	
+	public void addPoint() {
+		this.points++;
+	}
+	
+	public int getPoints() {
+		return this.points;
+	}
+	
+	public void setTournament(TournamentEntity tournament) {
+		this.tournament = tournament;
+	}
+	
+	public TournamentEntity getTournament() {
+		return this.tournament;
+	}
+	
+	public void leaveTournament() {
+		this.tournament = null;
+	}
 }

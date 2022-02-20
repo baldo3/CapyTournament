@@ -1,20 +1,28 @@
 {{>header}}
 <div id="content">
 	
-	<h1 id="title">Sección {{sectionName}}</h1 id="title">
+	<h1 id="title">{{sectionName}}</h1 id="title">
 	
 	{{#hasDescription}}
 	<p id="description">{{description}}</p>
 	{{/hasDescription}}
 	
+	{{#hasImage}}
+	<img src="/image.png" alt="image">
+	{{/hasImage}}
+	
+	{{#isTournamentsList}}
+	<form action="/create_tournament"><input type='submit' class="adminButton" value='Crear torneo'/></form>
+	{{/isTournamentsList}}
+	
 	{{#isTeamsList}}
 	{{#playerFree}}
-	<form action="/create_team"><input type='submit' class="player" value='Crear equipo'/></form>
+	<form action="/create_team"><input type='submit' class="playerButton" value='Crear equipo'/></form>
 	{{/playerFree}}
 	{{/isTeamsList}}
 	
 	{{#isChampionsList}}
-	<form action="/create_champion"><input type='submit' create=true value='Crear campeón'/></form>
+	<form action="/create_champion"><input type='submit' class="adminButton" value='Crear campeón'/></form>
 	{{/isChampionsList}}
 	
 	<table id="generic_list">
@@ -22,20 +30,22 @@
  	<tr>
  	<td>{{-index}}</td>
  	<td> <a href="/{{sectionID}}?name={{name}}">{{name}}</a></td>
+ 	
  	<td>{{#isTournamentsList}}
+ 	{{#hasTeam}}<form action="/join_tournament/{{name}}" method="post"><input type='submit' class="captainButton" value='Inscribirse'/></form>{{/hasTeam}}
  	{{/isTournamentsList}}</td>
  	
  	<td>{{#isTeamsList}}
- 	{{#playerFree}}<form action="/join_team/{{name}}" method="post"><input type='submit' value='Unirse'/></form>{{/playerFree}}
- 	<form action="/delete_team/{{name}}" method="post"><input type='submit' value='Eliminar'/></form>
+ 	{{#playerFree}}{{#available}}<form action="/join_team/{{name}}" method="post"><input type='submit'  class="playerButton" value='Unirse'/></form>{{/available}}{{/playerFree}}
+ 	<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>
  	{{/isTeamsList}}</td>
  	
  	<td>{{#isPlayersList}}
- 	<form action="/delete_player/{{name}}" method="post"><input type='submit' value='Banear'/></form>
+ 	<form action="/delete_player/{{name}}" method="post"><input type='submit'  class="adminButton" value='Banear'/></form>
  	{{/isPlayersList}}</td>
  	
  	<td>{{#isChampionsList}}
- 	<form action="/delete_champion/{{name}}" method="post"><input type='submit' value='Eliminar'/></form>
+ 	<form action="/delete_champion/{{name}}" method="post"><input type='submit' class="adminButton" value='Eliminar'/></form>
  	{{/isChampionsList}}</td>
  	</tr>
  	{{/items}}

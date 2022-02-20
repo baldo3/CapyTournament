@@ -25,7 +25,7 @@ public class Team implements CommandLineRunner{
 	private PlayerControl playerControl;
 	
 	@GetMapping("/team")
-    public String sayHello(Model model, @RequestParam String name) {
+    public String visitTeam(Model model, @RequestParam String name, HttpSession session) {
 		Optional<TeamEntity> team = control.findTeamById(name);
     	model.addAttribute("name", name);
     	List<PlayerEntity> players = null;
@@ -34,17 +34,50 @@ public class Team implements CommandLineRunner{
     		players = team.get().getPlayers();
     		motto = team.get().getMotto();
     	}
+    	PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
+    	boolean playerFree = player.getStatus() =="FREE";
+    	boolean available = team.get().isAvailable();
+    	TournamentEntity tournament = team.get().getTournament();
+    	String tournamentName = null;
+    	boolean hasTournament = false;
+    	if(tournament != null) {
+    		tournamentName = tournament.getName();
+    		hasTournament = true;
+    	}
+    	model.addAttribute("hasTournament", hasTournament);
+    	model.addAttribute("tournament", tournamentName);
+    	model.addAttribute("playerFree", playerFree);
+    	model.addAttribute("available", available);
+    	model.addAttribute("isMyTeam", this.belongs((PlayerEntity) session.getAttribute("CurrentUser"), team.get()));
     	model.addAttribute("players", players);
     	model.addAttribute("description", motto);
     	return "team_template";
     }
 	
 	@PostMapping("/team")
-	public String teamPost(Model model, @RequestParam String name, @RequestParam String motto){
-		control.newTeam(name, motto);
+	public String teamPost(Model model, @RequestParam String name, @RequestParam String motto, HttpSession session){
+		TeamEntity team = new TeamEntity(name, motto);
+		control.newTeam(team);
+		PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
+		control.joinTeam(team, player);
+		playerControl.savePlayer(player);
+    	boolean playerFree = player.getStatus() =="FREE";
+    	boolean available = team.isAvailable();
+    	TournamentEntity tournament = team.getTournament();
+    	String tournamentName = null;
+    	boolean hasTournament = false;
+    	if(tournament != null) {
+    		tournamentName = tournament.getName();
+    		hasTournament = true;
+    	}
+    	model.addAttribute("hasTournament", hasTournament);
+    	model.addAttribute("tournament", tournamentName);
+    	model.addAttribute("playerFree", playerFree);
+    	model.addAttribute("available", available);
 		model.addAttribute("name", name);
-    	model.addAttribute("players", null);
+    	model.addAttribute("players", team.getPlayers());
     	model.addAttribute("description", motto);
+    	model.addAttribute("isMyTeam", this.belongs((PlayerEntity) session.getAttribute("CurrentUser"), team));
 		return "team_template";
 	}
 	
@@ -79,11 +112,16 @@ public class Team implements CommandLineRunner{
 		TeamEntity t = control.findTeamById(id).orElseThrow();
 		
 		t.getPlayers().forEach((p)->{
-			p.setTeam(null);
+			p.leaveTeam();
 			playerControl.savePlayer(p);
 			});
 
 		control.deleteTeamById(id);
+		
+		Optional<PlayerEntity> user = playerControl.findPlayerById("Usuario");
+    	if(user.isPresent()) {
+    		session.setAttribute("CurrentUser", user.get());
+    	}
 		
 		List<TeamEntity> teams = control.findAllTeams();
 		PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
@@ -101,6 +139,9 @@ public class Team implements CommandLineRunner{
     	model.addAttribute("sectionID", "team");
     	model.addAttribute("items", teams);
     	model.addAttribute("isTeamsList", true);
+    	
+    	
+    	
     	return "list_template";
 	}
 	
@@ -119,9 +160,32 @@ public class Team implements CommandLineRunner{
     		players = team.get().getPlayers();
     		motto = team.get().getMotto();
     	}
+    	PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
+    	boolean playerFree = player.getStatus() =="FREE";
+    	boolean available = team.get().isAvailable();
+    	TournamentEntity tournament = team.get().getTournament();
+    	String tournamentName = null;
+    	boolean hasTournament = false;
+    	if(tournament != null) {
+    		tournamentName = tournament.getName();
+    		hasTournament = true;
+    	}
+    	model.addAttribute("hasTournament", hasTournament);
+    	model.addAttribute("tournament", tournamentName);
+    	model.addAttribute("playerFree", playerFree);
+    	model.addAttribute("available", available);
     	model.addAttribute("players", players);
     	model.addAttribute("description", motto);
+    	model.addAttribute("isMyTeam", this.belongs((PlayerEntity) session.getAttribute("CurrentUser"), team.get()));
     	return "team_template";
+	}
+	
+	public boolean belongs(PlayerEntity player, TeamEntity team) {
+		if(player.getTeam() == null) {
+			return false;
+		}else {
+			return player.getTeam().getName().equals(team.getName());
+		}
 	}
 	
 	@Override
