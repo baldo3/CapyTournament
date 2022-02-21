@@ -2,6 +2,8 @@
 Herramienta para jugadores amateur de MOBA que quieren organizar y participar en sus propios torneos.
 Completada con estadísticas sobre partidos, jugadores y campeones.
 
+# 🟢 FASE 1
+
 ## 🌎 Parte pública ##
 - Ver los torneos existentes, equipos y jugadores participantes y resultados.
 - Consultar las estadísticas de cualquier torneo, equippo, jugador o campeón (personaje).
@@ -9,12 +11,12 @@ Completada con estadísticas sobre partidos, jugadores y campeones.
 ## 🔒 Parte privada ##
 JUGADOR:
 - Crear un equipo o unirse a uno ya existente.
-- Si es capitán, gestionar los jugadores de su equipo e inscribir su equipo a un torneo.
+- Si es capitán, inscribir su equipo a un torneo.
 
 ADMINISTRADOR:
 - Crear un torneo.
 - Gestionar los resultados de los encuentros (equipo ganador y estadísticas)
-- Si fuese necesario, expulsar equipos o jugadores concretos de un torneo.
+- Si fuese necesario, expulsar equipos del sistema.
 
 
 ## 📦 Entidades ##
@@ -27,4 +29,63 @@ ADMINISTRADOR:
 ## 🔧 Funcionalidades del servicio interno ##
 - Envío de correos electrónicos a los participantes horas antes de sus partidos.
 - Elaboración de las estadísticas en base a los datos almacenados en la BDD.
+
+# 🟢 FASE 2
+La aplicación implementa la navegación principal y hace uso completo de la base de datos.
+
+## 💻 Capturas de pantalla ##
+INICIO:
+Página inicial de la aplicación, muestra una breve descripción sobre el objetivo del sistema y una imagen.
+
+<img src="https://user-images.githubusercontent.com/59179104/154987491-1493dea1-34e4-4b17-b35c-c7630cddd2bb.png" width="800" height="400">
+
+
+LISTA DE TORNEOS:
+Accesible a través de la barra de navegación, muestra todos los torneos así como la opción (para administradores) de crear un nuevo torneo y la opción (para capitanes) de inscribirse a un torneo)
+
+<img src="https://user-images.githubusercontent.com/59179104/154988967-95462997-9067-40b8-9e32-2794e76fcc5f.png" width="800" height="400">
+
+TORNEO:
+Muestra el nombre del torneo, una lista con los equipos que participan en el torneo, así como la puntuación de cada uno de ellos. En siguientes versiones, mostratá los resultados de los partidos del torneo.
+
+<img src="https://user-images.githubusercontent.com/59179104/154990687-121b76d9-300c-426c-90f7-85f4d5f78184.png" width="800" height="400">
+
+LISTA DE EQUIPOS:
+Accesible a través de la barra de navegación, muestra todos los equipos así como las acciones principales sobre los equipos (unirse, eliminar, crear equipo...)
+
+<img src="https://user-images.githubusercontent.com/59179104/154990224-52a66e67-b00d-45dd-a45b-3ca86faa7d9e.png" width="800" height="400">
+
+EQUIPO:
+Muestra el nombre del equipo, una lista con los jugadores que lo forman y el torneo actual (si están en alguno). En siguientes versiones, mostrará las estadísticas del equipo. También ofrece algunos botones para las acciones específicas sobre ese equipo.
+
+<img src="https://user-images.githubusercontent.com/59179104/154990276-2d6554c4-ed97-4462-b644-a33826c0566e.png" width="800" height="400">
+
+LISTA DE JUGADORES:
+Accesible a través de la barra de navegación, muestra todos los jugadores así como la opción (si eres administrador) de banear a un jugador.
+
+<img src="https://user-images.githubusercontent.com/59179104/154990370-2d30e008-d5d0-453d-aa61-b279a9176490.png" width="800" height="400">
+
+JUGADOR:
+Muestra el nombre del jugador y el equipo en el que está (si está en alguno). En siguientes versiones, mostrará las estadísticas del jugador.
+
+<img src="https://user-images.githubusercontent.com/59179104/154990449-16388530-2d40-4ed1-9ebe-f790d2858156.png" width="800" height="400">
+
+LISTA DE CAMPEONES:
+Accesoble a través de la barra de navegación, muestra todos los campeones así como la opción (si eres administrador) de crear y eliminar campeones.
+
+<img src="https://user-images.githubusercontent.com/59179104/154990504-4de415f7-980b-416c-b330-c8eadee609d4.png" width="800" height="400">
+
+CAMPEÓN:
+Muestra el nombre del campeón y, en versiones futuras, las estadísticas sobre los partidos en los que se ha utilizado el campeón.
+
+<img src="https://user-images.githubusercontent.com/59179104/154990571-ed1fbf5f-9399-4372-b893-37894a933dcf.png" width="800" height="400">
+
+## 📈 Diagrama de navegación ##
+
+![DiagramaNavegacion](https://user-images.githubusercontent.com/59179104/154992610-690ccfdb-5461-4eba-a3e4-69dbaebc3388.png)
+
+## 🧮 Modelo de datos ##
+DIAGRAMA DE CLASES UML:
+
+DIAGRAMA ENTIDAD/RELACIÓN:
 
