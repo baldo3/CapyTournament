@@ -86,6 +86,10 @@ Muestra el nombre del campeón y, en versiones futuras, las estadísticas sobre 
 
 ## 🧮 Modelo de datos ##
 DIAGRAMA DE CLASES UML:
+![imagen](https://user-images.githubusercontent.com/46084814/155016773-23815a16-13da-4041-adb3-4ffe6094413e.png)
+
 
 DIAGRAMA ENTIDAD/RELACIÓN:
+![imagen](https://user-images.githubusercontent.com/46084814/155016159-9accd158-5a18-4b55-9c9a-246b479de3c6.png)
+
 
