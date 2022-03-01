@@ -1,9 +1,17 @@
 package com.example.demo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 public class PlayerEntity {
@@ -15,7 +23,7 @@ public class PlayerEntity {
 	private String email;
 	
 	@Column(name="CONTRASENIA", length=30, nullable=false, unique=false)
-	private String password;
+	private String passwordHash;
 	
 	@Column(name="NOMBRE_JUGADOR_CLIENTE", length=50, nullable=false, unique=false)
 	private String nombreCliente;
@@ -23,21 +31,33 @@ public class PlayerEntity {
 	@Column(name="WINRATE_JUGADOR", nullable=false, unique=false)
 	private int winrate=0;
 	
-	//@Column(name="MAIN", nullable=true, unique=false)
+	//@OneToOne
 	//private ChampionEntity main;
 	
 	@ManyToOne
 	private TeamEntity team;
+	
+	//@ElementCollection(fetch = FetchType.EAGER)
+	//private List<String> roles;
 	
 	@Column(name="ESTADO", length=240, nullable=true, unique=false)
 	private String status= "FREE";
 	
 	protected PlayerEntity(){}
 
+	//CONSTRUCTOR
+	public PlayerEntity(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.passwordHash = new BCryptPasswordEncoder().encode(password);
+		//this.roles = new ArrayList<String>();
+		addRol("PLAYER");
+	}
+	
 	public PlayerEntity(String name) {
 		this.name = name;
 		this.email = "";
-		this.password = "";
+		this.passwordHash = "";
 		this.nombreCliente = "";
 		this.winrate = 0;
 		this.status = "FREE";
@@ -47,7 +67,7 @@ public class PlayerEntity {
 		super();
 		this.name = name;
 		this.email = email;
-		this.password = password;
+		this.passwordHash = password;
 		this.nombreCliente = nombreCliente;
 		this.winrate = winrate;
 		this.status = status;
@@ -82,5 +102,18 @@ public class PlayerEntity {
 		return this.name;
 	}
 	
+	public void addRol(String rol) {
+		
+		//roles.add(rol);
+	}
 	
+	public List<String> getRoles(){
+		//return roles;
+		return null;
+	}
+	
+	public boolean isAdmin() {
+		//return roles.contains("ADMIN");
+		return true;
+	}
 }
