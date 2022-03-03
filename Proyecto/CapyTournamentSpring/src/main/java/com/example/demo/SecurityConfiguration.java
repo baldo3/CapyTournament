@@ -14,6 +14,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  http.authorizeRequests().antMatchers("/login").permitAll();
  http.authorizeRequests().antMatchers("/loginerror").permitAll();
  http.authorizeRequests().antMatchers("/logout").permitAll();
+ http.authorizeRequests().antMatchers("/register").permitAll();
+ http.authorizeRequests().antMatchers("/home").permitAll();
+ http.authorizeRequests().antMatchers("/teams_list").permitAll();
+ http.authorizeRequests().antMatchers("/tournaments_list").permitAll();
+ http.authorizeRequests().antMatchers("/players_list").permitAll();
+ http.authorizeRequests().antMatchers("/champions_list").permitAll();
+ http.authorizeRequests().antMatchers("/team").permitAll();
+ http.authorizeRequests().antMatchers("/tournament").permitAll();
+ http.authorizeRequests().antMatchers("/player").permitAll();
+ http.authorizeRequests().antMatchers("/champions_list").permitAll();
+ http.authorizeRequests().antMatchers("/resources/*").permitAll();
+
+ 
  // Private pages (all other pages)
  http.authorizeRequests().anyRequest().authenticated();
  // Login form
