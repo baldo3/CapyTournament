@@ -19,6 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 	        repository.save(newPlayer);
 	    }
 	    
+	    public void newPlayer(String name, String email, String password) {
+	    	PlayerEntity newPlayer = new PlayerEntity(name, email, password);
+	    	repository.save(newPlayer);
+	    }
+	    
 	    public void newPlayer(PlayerEntity player) {
 	    	repository.save(player);
 	    }

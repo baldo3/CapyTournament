@@ -52,6 +52,8 @@ public class PlayerEntity {
 		this.passwordHash = new BCryptPasswordEncoder().encode(password);
 		//this.roles = new ArrayList<String>();
 		addRol("PLAYER");
+		this.nombreCliente = "";
+		this.winrate = 0;
 	}
 	
 	public PlayerEntity(String name) {
