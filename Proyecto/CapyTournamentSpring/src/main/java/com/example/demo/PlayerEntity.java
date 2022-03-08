@@ -22,7 +22,7 @@ public class PlayerEntity {
 	@Column(name="EMAIL", length=80, nullable=false, unique=false)
 	private String email;
 	
-	@Column(name="CONTRASENIA", length=30, nullable=false, unique=false)
+	@Column(name="CONTRASENIA", nullable=false, unique=false)
 	private String passwordHash;
 	
 	@Column(name="NOMBRE_JUGADOR_CLIENTE", length=50, nullable=false, unique=false)
