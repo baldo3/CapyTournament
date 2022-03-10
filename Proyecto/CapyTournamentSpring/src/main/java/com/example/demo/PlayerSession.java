@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.web.context.annotation.SessionScope;
 
 @Component
@@ -12,14 +13,20 @@ public class PlayerSession {
 	private boolean errorUsuario = false;
 	private boolean errorContra = false;
 	private boolean datosInsuficientes = false;
-	private boolean errorPuja= false;
-	private boolean pujaRealizada= false;
 	private boolean baneado=false;
 	private boolean usuarioBaneadoConExito= false;
-	private boolean errorBaneo= false;
+	private boolean isLogged = false;
 	
 	public PlayerSession() {
 		
+	}
+	
+	public void setLogged(boolean logged) {
+		isLogged = logged;
+	}
+	
+	public boolean isLogged() {
+		return isLogged;
 	}
 
 	public String getCurrentName() {
@@ -54,44 +61,8 @@ public class PlayerSession {
 		this.datosInsuficientes = datosInsuficientes;
 	}
 
-	public boolean isErrorPuja() {
-		return errorPuja;
-	}
-
-	public void setErrorPuja(boolean errorPuja) {
-		this.errorPuja = errorPuja;
-	}
-
-	public boolean isPujaRealizada() {
-		return pujaRealizada;
-	}
-
-	public void setPujaRealizada(boolean pujaRealizada) {
-		this.pujaRealizada = pujaRealizada;
-	}
-
-	public boolean isBaneado() {
-		return baneado;
-	}
-
-	public void setBaneado(boolean baneado) {
-		this.baneado = baneado;
-	}
-
-	public boolean isUsuarioBaneadoConExito() {
-		return usuarioBaneadoConExito;
-	}
-
 	public void setUsuarioBaneadoConExito(boolean usuarioBaneadoConExito) {
 		this.usuarioBaneadoConExito = usuarioBaneadoConExito;
 	}
-
-	public boolean isErrorBaneo() {
-		return errorBaneo;
-	}
-
-	public void setErrorBaneo(boolean errorBaneo) {
-		this.errorBaneo = errorBaneo;
-	}
-
 }
+

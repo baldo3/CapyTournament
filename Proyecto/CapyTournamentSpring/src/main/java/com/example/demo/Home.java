@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class Home {
+public class Home extends BasicWebController{
 	
 	@Autowired
     private ChampionControl championControl;
@@ -32,12 +32,25 @@ public class Home {
     	model.addAttribute("sectionName", "Inicio");
     	model.addAttribute("description", homeText);
     	model.addAttribute("hasDescription", true);
+    	model.addAttribute("hasImage", true);  	
+    	//updateCurrentPlayer(model);
+    	return "list_template";
+    }
+	
+	@GetMapping("/")
+    public String start(Model model, HttpSession session) {
+		String homeText = new String("CapyTournament es tu herramienta de creación de torneos, de amateurs para amateurs.\r\n"
+				+ "¡Crea tu equipo, inscríbete a un torneo y compite!");
+    	model.addAttribute("sectionName", "Inicio");
+    	model.addAttribute("description", homeText);
+    	model.addAttribute("hasDescription", true);
     	model.addAttribute("hasImage", true);
     	
     	Optional<PlayerEntity> player = playerControl.findPlayerById("Usuario");
     	if(player.isPresent()) {
     		session.setAttribute("CurrentUser", player.get());
     	}    	
+    	updateCurrentPlayer(model);
     	return "list_template";
     }
 	

@@ -118,4 +118,8 @@ public class PlayerEntity {
 		//return roles.contains("ADMIN");
 		return true;
 	}
+	
+	public String getPassword() {
+		return passwordHash;
+	}
 }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class Tournament implements CommandLineRunner{
+public class Tournament extends BasicWebController{
 	
 	@Autowired
 	 private TournamentControl control;
@@ -52,6 +52,8 @@ public class Tournament implements CommandLineRunner{
     	model.addAttribute("sectionID", "tournament");
     	model.addAttribute("items", tournaments);
     	model.addAttribute("isTournamentsList", true);
+    	updateCurrentPlayer(model);
+
     	return "list_template";
     }
 	
@@ -101,11 +103,5 @@ public class Tournament implements CommandLineRunner{
         List<TeamEntity> teams = tournament.getTeams();
     	model.addAttribute("teams", teams);
     	return "tournament_template";
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 }

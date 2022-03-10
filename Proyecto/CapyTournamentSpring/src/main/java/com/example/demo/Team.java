@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class Team implements CommandLineRunner{
+public class Team extends BasicWebController{
 	
 	@Autowired
 	 private TeamControl control;
@@ -99,6 +99,8 @@ public class Team implements CommandLineRunner{
     	model.addAttribute("sectionID", "team");
     	model.addAttribute("items", teams);
     	model.addAttribute("isTeamsList", true);
+    	updateCurrentPlayer(model);
+
     	return "list_template";
     }
 	
@@ -186,11 +188,5 @@ public class Team implements CommandLineRunner{
 		}else {
 			return player.getTeam().getName().equals(team.getName());
 		}
-	}
-	
-	@Override
-	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 }

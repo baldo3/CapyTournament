@@ -1,4 +1,4 @@
-/*package com.example.demo;
+package com.example.demo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,51 +20,44 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserRepositoryAuthenticationProvider implements AuthenticationProvider {
+public class PlayerAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
 	private PlayerRepository playerRepository;
 	
 	@Autowired
-	protected UsserSession currentUser;
-	
-	private Logger log = LoggerFactory.getLogger(UserRepositoryAuthenticationProvider.class);
-	
-	public UserRepositoryAuthenticationProvider() {
-		// TODO Auto-generated constructor stub
+	protected PlayerSession currentUser;
+		
+	public PlayerAuthenticationProvider() {
 	}
 
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
-		// TODO Auto-generated method stub
-		log.warn("hola");
-		Optional<User> user= userRepository.findByNombre(auth.getName());
-		
-		if(!user.isPresent()) {
+		Optional<PlayerEntity> player = playerRepository.findById(auth.getName());
+		System.out.println("ENTRA");
+		if(!player.isPresent()) {
 			currentUser.setErrorUsuario(true);
 			throw new BadCredentialsException("User not found");
 		}
 		
 		String password = (String) auth.getCredentials();
 		
-		if (!new BCryptPasswordEncoder().matches(password, user.get().getContrasena())) {
+		if (!new BCryptPasswordEncoder().matches(password, player.get().getPassword())) {
 			currentUser.setErrorContra(true);
 			throw new BadCredentialsException("Wrong password");
 		}
-		if(user.get().isBaneado()) {
-			currentUser.setBaneado(true);
-			throw new BadCredentialsException("Banned");
-		}
+		
 		List<GrantedAuthority> roles = new ArrayList<>();
 			
-		for (String role : user.get().getRoles()) {
+		for (String role : player.get().getRoles()) {
 			roles.add(new SimpleGrantedAuthority(role));
 		}
-			
-		
+
 		currentUser.setCurrentName(auth.getName());
+		currentUser.setLogged(true);
 		
-		return new UsernamePasswordAuthenticationToken(user.get().getNombre(), password, roles);
+		//TOKEN
+		return new UsernamePasswordAuthenticationToken(player.get().getName(), password, roles);
 	}
 	
 	@Override
@@ -73,4 +66,4 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 		return true;
 	}
 
-}*/
+}

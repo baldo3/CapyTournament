@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class Champion implements CommandLineRunner{
+public class Champion extends BasicWebController{
 	
 	@Autowired
 	 private ChampionControl control;
@@ -59,10 +59,4 @@ public class Champion implements CommandLineRunner{
 	    	
 			return "list_template";
 		}
-
-	@Override
-	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 	}

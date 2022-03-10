@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class Player implements CommandLineRunner{
+public class Player extends BasicWebController{
 	
 	@Autowired
 	 private PlayerControl control;
@@ -61,6 +61,8 @@ public class Player implements CommandLineRunner{
     	model.addAttribute("items", players);
     	model.addAttribute("sectionID", "player");
     	model.addAttribute("isPlayersList", true);
+    	updateCurrentPlayer(model);
+
     	return "list_template";
     }
 	
@@ -74,12 +76,5 @@ public class Player implements CommandLineRunner{
     	model.addAttribute("sectionID", "player");
     	model.addAttribute("isPlayersList", true);
     	return "list_template";
-	}
-	
-	
-	@Override
-	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 }

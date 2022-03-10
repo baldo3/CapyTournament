@@ -13,7 +13,12 @@
 </span>
 
 <span id="login">
-<form action="/login"><input type='submit' class="loginButton" value='Log-In'/></form>
+<form action="/login">
+{{#isLogged}}
+<h3>REGISTRADO: {{playerName}}</h3>
+{{/isLogged}}
+<input type='submit' class="loginButton" value='Log-In'/>
+</form>
 </span>
 </div>
 

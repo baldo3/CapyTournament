@@ -22,24 +22,14 @@ public class TournamentEntity {
  @Column(name="NOMBRE_TORNEO", length=50, nullable=false, unique=true)
  private String name;
  
- @Column(name="ESTADO", length=20, nullable=true, unique=false)
- @Enumerated(EnumType.STRING)
- private EstadosRepository estado;
- 
- @Column(name="FORMATO", length=20, nullable=true, unique=false)
- @Enumerated(EnumType.STRING)
- private FormatosRepository formato;
- 
  @OneToMany(mappedBy = "tournament")
 	private List<TeamEntity> teams = new ArrayList<>();
  
  protected TournamentEntity() {};
 
- public TournamentEntity(Long id, String name, EstadosRepository estado, FormatosRepository formato) {
+ public TournamentEntity(Long id, String name) {
 		this.id = id;
 		this.name = name;
-		this.estado = estado;
-		this.formato = formato;
  }
  
  public TournamentEntity(String name) {
