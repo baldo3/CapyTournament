@@ -15,7 +15,14 @@
 <span id="login">
 <form action="/login">
 {{#isLogged}}
-<h3>REGISTRADO: {{playerName}}</h3>
+<h3>
+{{#isAdmin}}
+Admin
+{{/isAdmin}}
+{{^isAdmin}}
+Jugador
+{{/isAdmin}}
+registrado: {{playerName}}</h3>
 {{/isLogged}}
 <input type='submit' class="loginButton" value='Log-In'/>
 </form>

@@ -37,8 +37,8 @@ public class PlayerEntity {
 	@ManyToOne
 	private TeamEntity team;
 	
-	//@ElementCollection(fetch = FetchType.EAGER)
-	//private List<String> roles;
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles = new ArrayList<String>();
 	
 	@Column(name="ESTADO", length=240, nullable=true, unique=false)
 	private String status= "FREE";
@@ -105,13 +105,11 @@ public class PlayerEntity {
 	}
 	
 	public void addRol(String rol) {
-		
-		//roles.add(rol);
+		roles.add(rol);
 	}
 	
 	public List<String> getRoles(){
-		//return roles;
-		return null;
+		return roles;
 	}
 	
 	public boolean isAdmin() {

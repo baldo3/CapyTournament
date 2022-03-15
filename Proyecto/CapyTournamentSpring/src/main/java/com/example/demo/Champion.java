@@ -22,6 +22,7 @@ public class Champion extends BasicWebController{
 	@GetMapping("/champion")
     public String visitChampion(Model model, @RequestParam String name) {
     	model.addAttribute("name", name);
+    	updateCurrentPlayer(model);
     	return "champion_template";
     }
 	
@@ -29,6 +30,7 @@ public class Champion extends BasicWebController{
 	public String visitChampionAfterCreate(Model model, @RequestParam String name) {
 		control.newChampion(name);
 		model.addAttribute("name", name);
+		updateCurrentPlayer(model);
 		return "champion_template";
 	}
 	
@@ -40,11 +42,14 @@ public class Champion extends BasicWebController{
     	model.addAttribute("items", champions);
     	model.addAttribute("sectionID", "champion");
     	model.addAttribute("isChampionsList", true);
+    	
+    	updateCurrentPlayer(model);
     	return "list_template";
     }
 	
 	@GetMapping("/create_champion")
 	public String visitCreateChampion(Model model) {
+		updateCurrentPlayer(model);
 		return "create_champion_template";
 	}
 	
@@ -57,6 +62,7 @@ public class Champion extends BasicWebController{
 	    	model.addAttribute("sectionID", "champion");
 	    	model.addAttribute("isChampionsList", true);
 	    	
+	    	updateCurrentPlayer(model);
 			return "list_template";
 		}
 	}

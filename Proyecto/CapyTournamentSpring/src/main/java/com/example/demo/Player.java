@@ -37,6 +37,7 @@ public class Player extends BasicWebController{
 		model.addAttribute("hasTeam", hasTeam);
 		model.addAttribute("teamName", teamName);
     	model.addAttribute("name", name);
+    	updateCurrentPlayer(model);
     	return "player_template";
     }
 	
@@ -51,6 +52,7 @@ public class Player extends BasicWebController{
 		model.addAttribute("hasTeam", hasTeam);
 		model.addAttribute("teamName", teamName);
     	model.addAttribute("name", player.getName());
+    	updateCurrentPlayer(model);
     	return "player_template";
     }
 	
@@ -75,6 +77,7 @@ public class Player extends BasicWebController{
     	model.addAttribute("items", players);
     	model.addAttribute("sectionID", "player");
     	model.addAttribute("isPlayersList", true);
+    	updateCurrentPlayer(model);
     	return "list_template";
 	}
 }

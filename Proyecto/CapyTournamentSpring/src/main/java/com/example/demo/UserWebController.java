@@ -30,12 +30,12 @@ public class UserWebController extends BasicWebController{
 	
 	@GetMapping("/login")
 	public String getLogin() {
-		return "login";
+    	return "login";
 	}
 
 	@GetMapping("/register")
 	public String getRegister() {
-		return "register";
+    	return "register";
 	}
 
 	@PostMapping("/register")
@@ -62,7 +62,7 @@ public class UserWebController extends BasicWebController{
 
 @GetMapping("/loginerror")
 public String loginerror() {
-return "login";
+return "loginerror";
 }
 
 @GetMapping("/error")

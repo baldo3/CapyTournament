@@ -33,6 +33,7 @@ public class Tournament extends BasicWebController{
         model.addAttribute("name", name);
         List<TeamEntity> teams = tournament.getTeams();
     	model.addAttribute("teams", teams);
+    	updateCurrentPlayer(model);
     	return "tournament_template";
     }
 	
@@ -63,12 +64,14 @@ public class Tournament extends BasicWebController{
 		model.addAttribute("name", name);
 		
 		
-		return "tournament_template";
+		updateCurrentPlayer(model);
+    	return "tournament_template";
 	}
 	
 	@GetMapping("/create_tournament")
 	public String visitCreateTournament(Model model) {
-		return "create_tournament_template";
+		updateCurrentPlayer(model);
+    	return "create_tournament_template";
 	}
 	
 	/*@PostMapping("/delete_tournament/{id}")
@@ -102,6 +105,7 @@ public class Tournament extends BasicWebController{
 		model.addAttribute("name", name);
         List<TeamEntity> teams = tournament.getTeams();
     	model.addAttribute("teams", teams);
+    	updateCurrentPlayer(model);
     	return "tournament_template";
 	}
 }

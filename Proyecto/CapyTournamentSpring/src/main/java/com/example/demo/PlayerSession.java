@@ -8,7 +8,7 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class PlayerSession {
 	
-	private String currentName;
+	private String currentName = "invitado";
 	
 	private boolean errorUsuario = false;
 	private boolean errorContra = false;
@@ -35,34 +35,6 @@ public class PlayerSession {
 
 	public void setCurrentName(String currentName) {
 		this.currentName = currentName;
-	}
-
-	public boolean isErrorUsuario() {
-		return errorUsuario;
-	}
-
-	public void setErrorUsuario(boolean errorUsuario) {
-		this.errorUsuario = errorUsuario;
-	}
-
-	public boolean isErrorContra() {
-		return errorContra;
-	}
-
-	public void setErrorContra(boolean errorContra) {
-		this.errorContra = errorContra;
-	}
-
-	public boolean isDatosInsuficientes() {
-		return datosInsuficientes;
-	}
-
-	public void setDatosInsuficientes(boolean datosInsuficientes) {
-		this.datosInsuficientes = datosInsuficientes;
-	}
-
-	public void setUsuarioBaneadoConExito(boolean usuarioBaneadoConExito) {
-		this.usuarioBaneadoConExito = usuarioBaneadoConExito;
 	}
 }
 

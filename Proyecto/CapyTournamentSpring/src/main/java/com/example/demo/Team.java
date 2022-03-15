@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class Team extends BasicWebController{
 	
 	@Autowired
+	private PlayerSession currentPlayer;
+	
+	@Autowired
 	 private TeamControl control;
 	
 	@Autowired
@@ -51,6 +54,7 @@ public class Team extends BasicWebController{
     	model.addAttribute("isMyTeam", this.belongs((PlayerEntity) session.getAttribute("CurrentUser"), team.get()));
     	model.addAttribute("players", players);
     	model.addAttribute("description", motto);
+    	updateCurrentPlayer(model);
     	return "team_template";
     }
 	
@@ -78,21 +82,24 @@ public class Team extends BasicWebController{
     	model.addAttribute("players", team.getPlayers());
     	model.addAttribute("description", motto);
     	model.addAttribute("isMyTeam", this.belongs((PlayerEntity) session.getAttribute("CurrentUser"), team));
-		return "team_template";
+    	updateCurrentPlayer(model);
+    	return "team_template";
 	}
 	
 	@GetMapping("/teams_list")
-    public String visitTeamsList(Model model, HttpSession session) {
+    public String visitTeamsList(Model model) {
 		List<TeamEntity> teams = control.findAllTeams();
-		PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
-		boolean playerFree;
-		switch(player.getStatus()) {
-		case "FREE":
-			playerFree = true;
-			break;
-		default:
-			playerFree = false;
-			break;
+		Optional<PlayerEntity> player = playerControl.findPlayerById(currentPlayer.getCurrentName());
+		boolean playerFree = false;
+		if(currentPlayer.isLogged()) {
+			switch(player.get().getStatus()) {
+				case "FREE":
+					playerFree = true;
+					break;
+				default:
+					playerFree = false;
+					break;
+			}
 		}
 		model.addAttribute("playerFree", playerFree);
     	model.addAttribute("sectionName", "Equipos");
@@ -106,7 +113,8 @@ public class Team extends BasicWebController{
 	
 	@GetMapping("/create_team")
 	public String teamForm(Model model) {
-		return "create_team_template";
+		updateCurrentPlayer(model);
+    	return "create_team_template";
 	}
 	
 	@PostMapping("/delete_team/{id}")
@@ -144,6 +152,7 @@ public class Team extends BasicWebController{
     	
     	
     	
+    	updateCurrentPlayer(model);
     	return "list_template";
 	}
 	
@@ -179,6 +188,7 @@ public class Team extends BasicWebController{
     	model.addAttribute("players", players);
     	model.addAttribute("description", motto);
     	model.addAttribute("isMyTeam", this.belongs((PlayerEntity) session.getAttribute("CurrentUser"), team.get()));
+    	updateCurrentPlayer(model);
     	return "team_template";
 	}
 	

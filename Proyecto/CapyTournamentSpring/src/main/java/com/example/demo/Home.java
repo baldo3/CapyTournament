@@ -33,7 +33,7 @@ public class Home extends BasicWebController{
     	model.addAttribute("description", homeText);
     	model.addAttribute("hasDescription", true);
     	model.addAttribute("hasImage", true);  	
-    	//updateCurrentPlayer(model);
+    	updateCurrentPlayer(model);
     	return "list_template";
     }
 	
@@ -69,15 +69,15 @@ public class Home extends BasicWebController{
 		team = new TeamEntity("Los Gatos Gordos", "Miau, miau...");
 		teamControl.newTeam(team);
 		
-		player = new PlayerEntity("BaldoRA");
+		player = new PlayerEntity("cofres", "baldo@gmail.com", "123");
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
-		player = new PlayerEntity("ClaudiaRA");
+		player = new PlayerEntity("lafusclau", "claudia@gmail.com", "miaumiau");
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
-		player = new PlayerEntity("JaviJo");
+		player = new PlayerEntity("javijones00", "javi@gameplay.ru", "kojima123");
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		

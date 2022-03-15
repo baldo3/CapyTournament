@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +17,12 @@ public class BasicWebController {
 	
 	public void updateCurrentPlayer(Model model) {
 		if(currentPlayer!= null) {
+			Optional<PlayerEntity> player = playerControl.findPlayerById(currentPlayer.getCurrentName());
 			model.addAttribute("isLogged", currentPlayer.isLogged());
-			model.addAttribute("playerName", currentPlayer.getCurrentName());
+			if(player.isPresent()) {
+			model.addAttribute("playerName", player.get().getName());
+			model.addAttribute("isAdmin", player.get().getRoles().contains("ADMIN"));
+			}
 		}
 	}
 }

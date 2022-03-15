@@ -2,25 +2,18 @@ package com.example.demo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PlayerAuthenticationProvider implements AuthenticationProvider {
+public class RepositoryPlayerDetailService implements UserDetailsService {
 
 	@Autowired
 	private PlayerRepository playerRepository;
@@ -28,10 +21,10 @@ public class PlayerAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
 	protected PlayerSession currentUser;
 		
-	public PlayerAuthenticationProvider() {
+	public RepositoryPlayerDetailService() {
 	}
 
-	@Override
+	/*@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 		Optional<PlayerEntity> player = playerRepository.findById(auth.getName());
 		System.out.println("ENTRA");
@@ -58,12 +51,27 @@ public class PlayerAuthenticationProvider implements AuthenticationProvider {
 		
 		//TOKEN
 		return new UsernamePasswordAuthenticationToken(player.get().getName(), password, roles);
-	}
+	}*/
+
+	
 	
 	@Override
-	public boolean supports(Class<?> authenticationObject) {
-		// TODO Auto-generated method stub
-		return true;
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		PlayerEntity player = playerRepository.findById(username)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+		
+		List<GrantedAuthority> roles = new ArrayList<>();
+		for (String role : player.getRoles()) {
+			roles.add(new SimpleGrantedAuthority("ROLE_" + role));
+		}
+
+		currentUser.setCurrentName(username);
+		currentUser.setLogged(true);
+		
+		return new org.springframework.security.core.userdetails.User(player.getName(), 
+				player.getPassword(), roles);
+
 	}
 
 }
