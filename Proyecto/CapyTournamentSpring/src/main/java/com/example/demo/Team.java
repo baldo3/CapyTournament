@@ -28,7 +28,7 @@ public class Team extends BasicWebController{
 	private PlayerControl playerControl;
 	
 	@GetMapping("/team")
-    public String visitTeam(Model model, @RequestParam String name, HttpSession session) {
+    public String visitTeam(Model model, @RequestParam String name) {
 		Optional<TeamEntity> team = control.findTeamById(name);
     	model.addAttribute("name", name);
     	List<PlayerEntity> players = null;
@@ -37,9 +37,15 @@ public class Team extends BasicWebController{
     		players = team.get().getPlayers();
     		motto = team.get().getMotto();
     	}
-    	PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
-    	boolean playerFree = player.getStatus() =="FREE";
-    	boolean available = team.get().isAvailable();
+    	Optional<PlayerEntity> player = playerControl.findPlayerById(currentPlayer.getCurrentName());
+    	boolean playerFree = false;
+    	boolean available = false;
+    	boolean isMyTeam = false;
+    	if(player.isPresent()) {
+    		playerFree = player.get().getStatus() =="FREE";
+    		isMyTeam = this.belongs(playerControl.findPlayerById(currentPlayer.getCurrentName()).get(), team.get());
+    	}
+		available = team.get().isAvailable();
     	TournamentEntity tournament = team.get().getTournament();
     	String tournamentName = null;
     	boolean hasTournament = false;
@@ -51,7 +57,7 @@ public class Team extends BasicWebController{
     	model.addAttribute("tournament", tournamentName);
     	model.addAttribute("playerFree", playerFree);
     	model.addAttribute("available", available);
-    	model.addAttribute("isMyTeam", this.belongs((PlayerEntity) session.getAttribute("CurrentUser"), team.get()));
+    	model.addAttribute("isMyTeam", isMyTeam);
     	model.addAttribute("players", players);
     	model.addAttribute("description", motto);
     	updateCurrentPlayer(model);
@@ -59,10 +65,10 @@ public class Team extends BasicWebController{
     }
 	
 	@PostMapping("/team")
-	public String teamPost(Model model, @RequestParam String name, @RequestParam String motto, HttpSession session){
+	public String teamPost(Model model, @RequestParam String name, @RequestParam String motto){
 		TeamEntity team = new TeamEntity(name, motto);
 		control.newTeam(team);
-		PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
+		PlayerEntity player = playerControl.findPlayerById(currentPlayer.getCurrentName()).get();
 		control.joinTeam(team, player);
 		playerControl.savePlayer(player);
     	boolean playerFree = player.getStatus() =="FREE";
@@ -81,7 +87,7 @@ public class Team extends BasicWebController{
 		model.addAttribute("name", name);
     	model.addAttribute("players", team.getPlayers());
     	model.addAttribute("description", motto);
-    	model.addAttribute("isMyTeam", this.belongs((PlayerEntity) session.getAttribute("CurrentUser"), team));
+    	model.addAttribute("isMyTeam", this.belongs(playerControl.findPlayerById(currentPlayer.getCurrentName()).get(), team));
     	updateCurrentPlayer(model);
     	return "team_template";
 	}
@@ -118,7 +124,7 @@ public class Team extends BasicWebController{
 	}
 	
 	@PostMapping("/delete_team/{id}")
-	public String visitTeamsListAfterDelete(Model model, @PathVariable String id, HttpSession session) {
+	public String visitTeamsListAfterDelete(Model model, @PathVariable String id) {
 		TeamEntity t = control.findTeamById(id).orElseThrow();
 		
 		t.getPlayers().forEach((p)->{
@@ -128,13 +134,8 @@ public class Team extends BasicWebController{
 
 		control.deleteTeamById(id);
 		
-		Optional<PlayerEntity> user = playerControl.findPlayerById("Usuario");
-    	if(user.isPresent()) {
-    		session.setAttribute("CurrentUser", user.get());
-    	}
-		
 		List<TeamEntity> teams = control.findAllTeams();
-		PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
+		PlayerEntity player = playerControl.findPlayerById(currentPlayer.getCurrentName()).get();
 		boolean playerFree;
 		switch(player.getStatus()) {
 		case "FREE":
@@ -157,9 +158,9 @@ public class Team extends BasicWebController{
 	}
 	
 	@PostMapping("/join_team/{id}")
-	public String visitTeamAfterJoin(Model model, @PathVariable String id, HttpSession session) {
+	public String visitTeamAfterJoin(Model model, @PathVariable String id) {
 		TeamEntity t = control.findTeamById(id).get();
-		PlayerEntity p = (PlayerEntity) session.getAttribute("CurrentUser");
+		PlayerEntity p = playerControl.findPlayerById(currentPlayer.getCurrentName()).get();
 		control.joinTeam(t, p);
 		control.saveTeam(t);
 		playerControl.savePlayer(p);
@@ -171,7 +172,7 @@ public class Team extends BasicWebController{
     		players = team.get().getPlayers();
     		motto = team.get().getMotto();
     	}
-    	PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
+		PlayerEntity player = playerControl.findPlayerById(currentPlayer.getCurrentName()).get();
     	boolean playerFree = player.getStatus() =="FREE";
     	boolean available = team.get().isAvailable();
     	TournamentEntity tournament = team.get().getTournament();
@@ -187,7 +188,7 @@ public class Team extends BasicWebController{
     	model.addAttribute("available", available);
     	model.addAttribute("players", players);
     	model.addAttribute("description", motto);
-    	model.addAttribute("isMyTeam", this.belongs((PlayerEntity) session.getAttribute("CurrentUser"), team.get()));
+    	model.addAttribute("isMyTeam", this.belongs(playerControl.findPlayerById(currentPlayer.getCurrentName()).get(), team.get()));
     	updateCurrentPlayer(model);
     	return "team_template";
 	}

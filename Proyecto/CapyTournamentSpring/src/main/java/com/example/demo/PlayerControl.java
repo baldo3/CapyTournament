@@ -24,6 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 	    	repository.save(newPlayer);
 	    }
 	    
+	    public void newPlayer(String name, String email, String password, boolean isAdmin) {
+	    	PlayerEntity newPlayer = new PlayerEntity(name, email, password, isAdmin);
+	    	repository.save(newPlayer);
+	    }
+	    
 	    public void newPlayer(PlayerEntity player) {
 	    	repository.save(player);
 	    }

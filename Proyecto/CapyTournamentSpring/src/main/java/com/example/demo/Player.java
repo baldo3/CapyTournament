@@ -1,14 +1,11 @@
 package com.example.demo;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +18,9 @@ public class Player extends BasicWebController{
 	
 	@Autowired
 	 private PlayerControl control;
+	
+	@Autowired
+	private PlayerSession currentPlayer;
 	
 	@GetMapping("/player")
     public String visitPlayer(Model model, @RequestParam String name) {
@@ -42,8 +42,8 @@ public class Player extends BasicWebController{
     }
 	
 	@PostMapping("/leave_my_team")
-    public String visitPlayerAfterLeaveTeam(Model model, HttpSession session) {
-		PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
+    public String visitPlayerAfterLeaveTeam(Model model) {
+		PlayerEntity player = control.findPlayerById(currentPlayer.getCurrentName()).get();
 		player.leaveTeam();
 		
 		control.savePlayer(player);
@@ -59,12 +59,25 @@ public class Player extends BasicWebController{
 	@GetMapping("/players_list")
     public String visitPlayersList(Model model) {
 		List<PlayerEntity> players = control.findAllPlayers();
+		/*
     	model.addAttribute("sectionName", "Jugadores");
     	model.addAttribute("items", players);
     	model.addAttribute("sectionID", "player");
     	model.addAttribute("isPlayersList", true);
-    	updateCurrentPlayer(model);
-
+    	//updateCurrentPlayer(model);
+    	if(control.findPlayerById(currentPlayer.getCurrentName()).isPresent()) {
+    		System.out.println("ROLES 2:" + control.findPlayerById(currentPlayer.getCurrentName()).get().getRoles());
+        	model.addAttribute("isAdmin", control.findPlayerById(currentPlayer.getCurrentName()).get().getRoles().contains("ADMIN"));
+    	}else {
+    		model.addAttribute("isAdmin", false);
+    	}
+    	System.out.println("WEEEEEEEEEEEEEEEEEEEEEEEE");*/
+		model.addAttribute("sectionName", "Jugadores");
+    	model.addAttribute("items", players);
+    	model.addAttribute("sectionID", "player");
+    	model.addAttribute("isPlayersList", true);
+    	model.addAttribute("admin", false);
+    	model.addAttribute("test", false);
     	return "list_template";
     }
 	

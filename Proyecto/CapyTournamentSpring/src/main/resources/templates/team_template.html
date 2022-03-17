@@ -30,9 +30,11 @@
 	</div>
 	
 	<div id="buttons">
-	<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>
+	{{#isLogged}}
+	{{#isAdmin}}<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>{{/isAdmin}}
 	{{#isMyTeam}}<form action="/leave_my_team" method="post"><input type='submit'  class="playerButton" value='Abandonar'/></form>{{/isMyTeam}}
 	{{#playerFree}}{{#available}}<form action="/join_team/{{name}}" method="post"><input type='submit'  class="playerButton" value='Unirse'/></form>{{/available}}{{/playerFree}}
+	{{/isLogged}}
 	</div>
 </div>
 

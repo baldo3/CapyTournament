@@ -12,17 +12,23 @@
 	{{/hasImage}}
 	
 	{{#isTournamentsList}}
+	{{#isAdmin}}
 	<form action="/create_tournament"><input type='submit' class="adminButton" value='Crear torneo'/></form>
+	{{/isAdmin}}
 	{{/isTournamentsList}}
 	
 	{{#isTeamsList}}
 	{{#playerFree}}
+	{{#isLogged}}
 	<form action="/create_team"><input type='submit' class="playerButton" value='Crear equipo'/></form>
+	{{/isLogged}}
 	{{/playerFree}}
 	{{/isTeamsList}}
 	
 	{{#isChampionsList}}
+	{{#isAdmin}}
 	<form action="/create_champion"><input type='submit' class="adminButton" value='Crear campeón'/></form>
+	{{/isAdmin}}
 	{{/isChampionsList}}
 	
 	<table id="generic_list">
@@ -32,20 +38,34 @@
  	<td> <a href="/{{sectionID}}?name={{name}}">{{name}}</a></td>
  	
  	<td>{{#isTournamentsList}}
+ 	{{#isLogged}}
  	{{#hasTeam}}<form action="/join_tournament/{{name}}" method="post"><input type='submit' class="captainButton" value='Inscribirse'/></form>{{/hasTeam}}
+ 	{{/isLogged}}
  	{{/isTournamentsList}}</td>
  	
  	<td>{{#isTeamsList}}
+ 	{{#isLogged}}
  	{{#playerFree}}{{#available}}<form action="/join_team/{{name}}" method="post"><input type='submit'  class="playerButton" value='Unirse'/></form>{{/available}}{{/playerFree}}
- 	<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>
+ 	{{/isLogged}}
+ 	{{#isAdmin}}<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>{{/isAdmin}}
  	{{/isTeamsList}}</td>
  	
+ 	
  	<td>{{#isPlayersList}}
- 	<form action="/delete_player/{{name}}" method="post"><input type='submit'  class="adminButton" value='Banear'/></form>
+ 	{{#admin}}<form action="/delete_player/{{name}}" method="post"><input type='submit'  class="adminButton" value='Banear'/></form>{{/admin}}
  	{{/isPlayersList}}</td>
+ 	{{#isAdmin}}
+ 	TEST
+ 	{{/isAdmin}}
+ 	{{#test}}
+ 	AAA
+ 	{{/test}}
+ 	
  	
  	<td>{{#isChampionsList}}
+ 	{{#isAdmin}}
  	<form action="/delete_champion/{{name}}" method="post"><input type='submit' class="adminButton" value='Eliminar'/></form>
+ 	{{/isAdmin}}
  	{{/isChampionsList}}</td>
  	</tr>
  	{{/items}}

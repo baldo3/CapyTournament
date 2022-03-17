@@ -56,6 +56,20 @@ public class PlayerEntity {
 		this.winrate = 0;
 	}
 	
+	public PlayerEntity(String name, String email, String password, boolean isAdmin) {
+		this.name = name;
+		this.email = email;
+		this.passwordHash = new BCryptPasswordEncoder().encode(password);
+		//this.roles = new ArrayList<String>();
+		addRol("PLAYER");
+		if(isAdmin) {
+		addRol("ADMIN");
+		System.out.println("ADMIN REGISTRADO");
+		}
+		this.nombreCliente = "";
+		this.winrate = 0;
+	}
+	
 	public PlayerEntity(String name) {
 		this.name = name;
 		this.email = "";

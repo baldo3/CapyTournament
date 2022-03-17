@@ -40,12 +40,12 @@ public class UserWebController extends BasicWebController{
 
 	@PostMapping("/register")
 	public String postRegister(Model model, @RequestParam String username, @RequestParam String email,
-		 @RequestParam String password/*, @RequestParam(value="isAdmin", required=false) String isAdmin*/) {
-	 /*boolean isAdminBool = false;
+		 @RequestParam String password, @RequestParam(value="isAdmin", required=false) String isAdmin) {
+	 boolean isAdminBool = false;
 	 if(isAdmin != null) {
 		 isAdminBool = true;
-	 }*/
-	 playerControl.newPlayer(username, email, password);
+	 }
+	 playerControl.newPlayer(username, email, password, isAdminBool);
 	 
 	 String homeText = new String("CapyTournament es tu herramienta de creación de torneos, de amateurs para amateurs.\r\n"
 				+ "¡Crea tu equipo, inscríbete a un torneo y compite!");
@@ -54,10 +54,8 @@ public class UserWebController extends BasicWebController{
 	model.addAttribute("hasDescription", true);
 	model.addAttribute("hasImage", true);
 	
-	currentPlayer.setCurrentName(username);
-	currentPlayer.setLogged(true);
 	updateCurrentPlayer(model);
-	return "list_template";
+	return "login";
 }
 
 @GetMapping("/loginerror")

@@ -69,19 +69,19 @@ public class Home extends BasicWebController{
 		team = new TeamEntity("Los Gatos Gordos", "Miau, miau...");
 		teamControl.newTeam(team);
 		
-		player = new PlayerEntity("cofres", "baldo@gmail.com", "123");
+		player = new PlayerEntity("cofres", "baldo@gmail.com", "123", true);
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
-		player = new PlayerEntity("lafusclau", "claudia@gmail.com", "miaumiau");
+		player = new PlayerEntity("lafusclau", "claudia@gmail.com", "miaumiau", true);
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
-		player = new PlayerEntity("javijones00", "javi@gameplay.ru", "kojima123");
+		player = new PlayerEntity("javijones00", "javi@gameplay.ru", "kojima123", true);
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
-		player = new PlayerEntity("Cpabe");
+		player = new PlayerEntity("cpabe", "cpabe@cpabe.cpabe", "cpabe");
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		

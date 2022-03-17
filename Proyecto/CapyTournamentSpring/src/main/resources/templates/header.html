@@ -13,7 +13,6 @@
 </span>
 
 <span id="login">
-<form action="/login">
 {{#isLogged}}
 <h3>
 {{#isAdmin}}
@@ -24,11 +23,20 @@ Jugador
 {{/isAdmin}}
 registrado: {{playerName}}</h3>
 {{/isLogged}}
+{{#isLogged}}
+<form action="/logout">
+<input type='submit' class="loginButton" value='Log-Out'/>
+</form>
+</span>
+</div>
+{{/isLogged}}
+{{^isLogged}}
+<form action="/login">
 <input type='submit' class="loginButton" value='Log-In'/>
 </form>
 </span>
 </div>
-
+{{/isLogged}}
 <div id="top_bar_2">
 <ul>
 <li><a href="/home">Inicio</a></li>

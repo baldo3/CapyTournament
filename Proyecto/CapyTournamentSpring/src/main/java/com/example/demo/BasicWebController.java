@@ -21,6 +21,7 @@ public class BasicWebController {
 			model.addAttribute("isLogged", currentPlayer.isLogged());
 			if(player.isPresent()) {
 			model.addAttribute("playerName", player.get().getName());
+			System.out.println("ROLES: " + player.get().getRoles());
 			model.addAttribute("isAdmin", player.get().getRoles().contains("ADMIN"));
 			}
 		}

@@ -13,7 +13,9 @@
 	</div>
 	
 	<div id="buttons">
+	{{#isAdmin}}
 	<form action="/delete_champion/{{name}}" method="post"><input type='submit' class="adminButton" value='Eliminar'/></form>
+	{{/isAdmin}}
 	</div>
 	
 </div>

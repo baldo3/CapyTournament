@@ -21,7 +21,9 @@
 	</div>
 	
 	<div id="buttons">
+	{{#isAdmin}}
 	<form action="/delete_player/{{name}}" method="post"><input type='submit'  class="adminButton" value='Banear'/></form>
+	{{/isAdmin}}
 	</div>
 	
 </div>
