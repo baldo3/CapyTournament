@@ -15,12 +15,12 @@
 <span id="login">
 {{#isLogged}}
 <h3>
-{{#isAdmin}}
+{{#isAdminLog}}
 Admin
-{{/isAdmin}}
-{{^isAdmin}}
+{{/isAdminLog}}
+{{^isAdminLog}}
 Jugador
-{{/isAdmin}}
+{{/isAdminLog}}
 registrado: {{playerName}}</h3>
 {{/isLogged}}
 {{#isLogged}}

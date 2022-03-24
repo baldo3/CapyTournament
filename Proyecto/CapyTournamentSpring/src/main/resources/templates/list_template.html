@@ -12,9 +12,9 @@
 	{{/hasImage}}
 	
 	{{#isTournamentsList}}
-	{{#isAdmin}}
+	{{#isAdminLog}}
 	<form action="/create_tournament"><input type='submit' class="adminButton" value='Crear torneo'/></form>
-	{{/isAdmin}}
+	{{/isAdminLog}}
 	{{/isTournamentsList}}
 	
 	{{#isTeamsList}}
@@ -26,9 +26,9 @@
 	{{/isTeamsList}}
 	
 	{{#isChampionsList}}
-	{{#isAdmin}}
+	{{#isAdminLog}}
 	<form action="/create_champion"><input type='submit' class="adminButton" value='Crear campeón'/></form>
-	{{/isAdmin}}
+	{{/isAdminLog}}
 	{{/isChampionsList}}
 	
 	<table id="generic_list">
@@ -39,7 +39,7 @@
  	
  	<td>{{#isTournamentsList}}
  	{{#isLogged}}
- 	{{#hasTeam}}<form action="/join_tournament/{{name}}" method="post"><input type='submit' class="captainButton" value='Inscribirse'/></form>{{/hasTeam}}
+ 	{{#hasTeam}}<form action="/join_tournament/{{name}}" method="post"><input type='submit' class="playerButton" value='Inscribirse'/></form>{{/hasTeam}}
  	{{/isLogged}}
  	{{/isTournamentsList}}</td>
  	
@@ -47,25 +47,19 @@
  	{{#isLogged}}
  	{{#playerFree}}{{#available}}<form action="/join_team/{{name}}" method="post"><input type='submit'  class="playerButton" value='Unirse'/></form>{{/available}}{{/playerFree}}
  	{{/isLogged}}
- 	{{#isAdmin}}<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>{{/isAdmin}}
+ 	{{#isAdminLog}}<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>{{/isAdminLog}}
  	{{/isTeamsList}}</td>
  	
  	
  	<td>{{#isPlayersList}}
- 	{{#admin}}<form action="/delete_player/{{name}}" method="post"><input type='submit'  class="adminButton" value='Banear'/></form>{{/admin}}
+ 	{{#isAdminLog}}<form action="/delete_player/{{name}}" method="post"><input type='submit'  class="adminButton" value='Banear'/></form>{{/isAdminLog}}
  	{{/isPlayersList}}</td>
- 	{{#isAdmin}}
- 	TEST
- 	{{/isAdmin}}
- 	{{#test}}
- 	AAA
- 	{{/test}}
  	
  	
  	<td>{{#isChampionsList}}
- 	{{#isAdmin}}
+ 	{{#isAdminLog}}
  	<form action="/delete_champion/{{name}}" method="post"><input type='submit' class="adminButton" value='Eliminar'/></form>
- 	{{/isAdmin}}
+ 	{{/isAdminLog}}
  	{{/isChampionsList}}</td>
  	</tr>
  	{{/items}}

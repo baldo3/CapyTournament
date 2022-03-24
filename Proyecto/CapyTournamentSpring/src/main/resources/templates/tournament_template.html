@@ -1,7 +1,7 @@
 {{>header}}
 <div id="content">
 	
-	<h1 id="title">Torneo {{name}}</h1 id="title">
+	<h1 id="title">Torneo {{tournamentName}}</h1 id="title">
 	
 	<h2>Participantes:</h2>
 	<table id="teams_list">
@@ -11,16 +11,56 @@
  	<td> <a href="/team?name={{name}}">{{name}}</a></td>
  	<td>| puntos: </td>
  	<td>{{points}}</td>
+ 	{{^isGame}}
+ 	<td>{{#isAdminLog}}<form action="/play_game/{{tournamentName}}/{{name}}" method="get"><input type='submit'  class="adminButton" value='Jugar'/></form>{{/isAdminLog}}</td>
+ 	{{/isGame}}
  	</tr>
  	{{/teams}}
  	</table>
  	
  	<div id="stats">
 	<h2>Resultados:</h2>
-	<p class="wip">[WIP: Gestionadas por el servicio interno]</p class="wip">
+	<p class="wip">[WIP: Se hará si es fácil]</p class="wip">
 	</div>
-	
 </div>
+	{{#isGame}}
+	<div id="playGame">
+
+	<h1>Partido de {{teamName}}</h1>
+	<h2>Campeones jugados</h2>
+	<!-- Lista de jugadores -->
+	<form action="/game_played/{{teamName}}" method="post">
+	<table id="players_list">
+	{{#players}}
+ 	<tr>
+ 	<td>> </td>
+ 	<td> {{name}}</td>
+ 	<td>
+ 	<select name="champion{{-index}}">
+   	{{#champions}}
+   	<option value="{{name}}">{{name}}</option> 
+   	{{/champions}}
+	</select>
+ 	</td>
+ 	</tr>
+ 	{{/players}}
+ 	</table id="players_list">
+	
+	<h2>Resultado</h2>
+	<input type="radio" id="victory" name="result" value="victory">
+	VICTORIA
+	<br>
+	<input type="radio" id="defeat" name="result" value="defeat">
+	DERROTA
+	<br>
+	<input type='submit' value='Confirmar'/>
+	</form>
+	
+	</div id="playGame">
+	{{/isGame}}
+
+
+
 
 
 

@@ -81,7 +81,7 @@ public class Home extends BasicWebController{
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
-		player = new PlayerEntity("cpabe", "cpabe@cpabe.cpabe", "cpabe");
+		player = new PlayerEntity("cpabe", "cpabe@cpabe.cpabe", "cpabe", false);
 		teamControl.joinTeam(team, player);
 		playerControl.newPlayer(player);
 		
@@ -132,12 +132,33 @@ public class Home extends BasicWebController{
 		
         teamControl.newTeam("Noche Fuerte", "A partir de las 3am se juega mejor");
 		
-		championControl.newChampion("Aatrox");
         championControl.newChampion("Ahri");
         championControl.newChampion("Akali");
-        championControl.newChampion("Akshan");
-        championControl.newChampion("Alistar");
-        championControl.newChampion("Amumu");
+        championControl.newChampion("Bardo");
+        championControl.newChampion("Blitzcrank");
+        championControl.newChampion("Cailyn");
+        championControl.newChampion("Darius");
+        championControl.newChampion("Ekko");
+        championControl.newChampion("Fiora");
+        championControl.newChampion("Galio");
+        championControl.newChampion("Hecarim");
+        championControl.newChampion("Heimerdinger");
+        championControl.newChampion("Ivern");
+        championControl.newChampion("Jhin");
+        championControl.newChampion("Kalista");
+        championControl.newChampion("Kayle");
+        championControl.newChampion("Kennen");
+        championControl.newChampion("Lee Sin");
+        championControl.newChampion("Leona");
+        championControl.newChampion("Lucian");
+        championControl.newChampion("Nami");
+        championControl.newChampion("Olaf");
+        championControl.newChampion("Riven");
+        championControl.newChampion("Sett");
+        championControl.newChampion("Soraka");
+        championControl.newChampion("Teemo");
+        championControl.newChampion("Tryndamere");
+        championControl.newChampion("Yuumi");
         
         tournamentControl.newTournament("Superliga Blue");
 	}

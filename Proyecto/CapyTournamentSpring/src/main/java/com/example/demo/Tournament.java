@@ -27,10 +27,16 @@ public class Tournament extends BasicWebController{
 	@Autowired
 	private PlayerControl playerControl;
 	
+	@Autowired
+	private PlayerSession currentPlayer;
+	
+	@Autowired
+	 private ChampionControl championControl;
+	
 	@GetMapping("/tournament")
     public String visitTournament(Model model, @RequestParam String name) {
 		TournamentEntity tournament = control.findTournamentByName(name);
-        model.addAttribute("name", name);
+        model.addAttribute("tournamentName", name);
         List<TeamEntity> teams = tournament.getTeams();
     	model.addAttribute("teams", teams);
     	updateCurrentPlayer(model);
@@ -38,17 +44,9 @@ public class Tournament extends BasicWebController{
     }
 	
 	@GetMapping("/tournaments_list")
-    public String visitTournamentsList(Model model, HttpSession session) {
+    public String visitTournamentsList(Model model) {
 		List<TournamentEntity> tournaments = control.findAllTournaments();
 		
-		Optional<PlayerEntity> player = playerControl.findPlayerById("Usuario");
-		boolean hasTeam = false;
-		if(player.isPresent()) {
-			if(player.get().getTeam() != null) {
-				hasTeam = true;
-			}
-		}
-		model.addAttribute("hasTeam", hasTeam);
     	model.addAttribute("sectionName", "Torneos");
     	model.addAttribute("sectionID", "tournament");
     	model.addAttribute("items", tournaments);
@@ -61,7 +59,7 @@ public class Tournament extends BasicWebController{
 	@PostMapping("/tournament")
 	public String visitTournamentAfterCreate(Model model, @RequestParam String name) {
 		control.newTournament(name);
-		model.addAttribute("name", name);
+		model.addAttribute("tournamentName", name);
 		
 		
 		updateCurrentPlayer(model);
@@ -74,38 +72,42 @@ public class Tournament extends BasicWebController{
     	return "create_tournament_template";
 	}
 	
-	/*@PostMapping("/delete_tournament/{id}")
-	public String visitTeamsListAfterDelete(Model model, @PathVariable String id, HttpSession session) {
-		TournamentEntity tournament = control.findTournamentByName(id);
-		
-		tournament.getTeams().forEach((team)->{
-			team.leaveTournament();
-			teamControl.saveTeam(team);
-			});
-
-		control.deleteTournamentByName(id);
-		List<TournamentEntity> tournaments = control.findAllTournaments();
-		model.addAttribute("sectionName", "Torneos");
-    	model.addAttribute("sectionID", "tournament");
-    	model.addAttribute("items", tournaments);
-    	model.addAttribute("isTournamentsList", true);
-	    	return "list_template";
-		}*/
-	
-	@PostMapping("/join_tournament/{name}")
-	public String visitTournamentAfterJoin(Model model, @PathVariable String name, HttpSession session) {
-		TournamentEntity tournament = control.findTournamentByName(name);
-		PlayerEntity player = (PlayerEntity) session.getAttribute("CurrentUser");
-		boolean playerFree = player.getStatus() =="FREE";
-		model.addAttribute("hasTeam", !playerFree);
+	@PostMapping("/join_tournament/{tournamentName}")
+	public String visitTournamentAfterJoin(Model model, @PathVariable String tournamentName) {
+		TournamentEntity tournament = control.findTournamentByName(tournamentName);
+		PlayerEntity player = playerControl.findPlayerById(currentPlayer.getCurrentName()).get();
 		TeamEntity team = player.getTeam();
 		control.joinTournament(tournament, team);
 		control.saveTournament(tournament);
 		teamControl.saveTeam(team);
-		model.addAttribute("name", name);
+		model.addAttribute("tournamentName", tournamentName);
         List<TeamEntity> teams = tournament.getTeams();
     	model.addAttribute("teams", teams);
     	updateCurrentPlayer(model);
     	return "tournament_template";
+	}
+	
+	@GetMapping("/play_game/{tournamentName}/{teamName}")
+	public String visitGame(Model model, @PathVariable String teamName, @PathVariable String tournamentName) {
+		TournamentEntity tournament = control.findTournamentByName(tournamentName);
+        model.addAttribute("tournamentName", tournamentName);
+        model.addAttribute("teamName", teamName);
+        model.addAttribute("isGame", true);
+        List<TeamEntity> teams = tournament.getTeams();
+    	model.addAttribute("teams", teams);
+    	TeamEntity team = teamControl.findTeamById(teamName).get();
+    	List<PlayerEntity> players = team.getPlayers();
+    	model.addAttribute("players", players);
+    	List<ChampionEntity> champions = championControl.findAllChampions();
+    	model.addAttribute("champions", champions);
+    	updateCurrentPlayer(model);
+    	return "tournament_template";
+	}
+	
+	@PostMapping("/game_played/{teamName}")
+	public String gamePlayed(Model model, @RequestParam String champion1, @RequestParam String champion2, @RequestParam String champion3,
+			@RequestParam String champion4, @RequestParam String champion5, @RequestParam String result, @PathVariable String teamName) {
+    	System.out.println(teamName + " - " + result + ": " +champion1 + ", " + champion2 + ", " + champion3 + ", " + champion4 + ", " + champion5);
+		return "login";
 	}
 }

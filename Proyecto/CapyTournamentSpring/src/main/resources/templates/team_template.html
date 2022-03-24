@@ -31,7 +31,7 @@
 	
 	<div id="buttons">
 	{{#isLogged}}
-	{{#isAdmin}}<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>{{/isAdmin}}
+	{{#isAdminLog}}<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>{{/isAdminLog}}
 	{{#isMyTeam}}<form action="/leave_my_team" method="post"><input type='submit'  class="playerButton" value='Abandonar'/></form>{{/isMyTeam}}
 	{{#playerFree}}{{#available}}<form action="/join_team/{{name}}" method="post"><input type='submit'  class="playerButton" value='Unirse'/></form>{{/available}}{{/playerFree}}
 	{{/isLogged}}

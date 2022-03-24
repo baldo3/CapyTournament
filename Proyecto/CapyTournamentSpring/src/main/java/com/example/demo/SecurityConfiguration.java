@@ -54,7 +54,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  
  
  http.authorizeHttpRequests().antMatchers("/create_champion").hasAnyRole("ADMIN");
+ http.authorizeHttpRequests().antMatchers("/create_tournament").hasAnyRole("ADMIN");
  http.authorizeHttpRequests().antMatchers("/delete_champion/*").hasAnyRole("ADMIN");
+ http.authorizeHttpRequests().antMatchers("/delete_player/*").hasAnyRole("ADMIN");
+ http.authorizeHttpRequests().antMatchers("/delete_team/*").hasAnyRole("ADMIN");
+ http.authorizeHttpRequests().antMatchers("/play_game/*/*").hasAnyRole("ADMIN");
+ http.authorizeHttpRequests().antMatchers("/play_game/*").hasAnyRole("ADMIN");
+ 
+ //http.authorizeHttpRequests().antMatchers("/join_team/*").hasAnyRole("PLAYER");
+ //http.authorizeHttpRequests().antMatchers("/join_tournament/*").hasAnyRole("PLAYER");
+ //http.authorizeHttpRequests().antMatchers("/create_team").hasAnyRole("PLAYER");
 
  
  // Private pages (all other pages)

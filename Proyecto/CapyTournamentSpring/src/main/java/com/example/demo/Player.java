@@ -59,25 +59,18 @@ public class Player extends BasicWebController{
 	@GetMapping("/players_list")
     public String visitPlayersList(Model model) {
 		List<PlayerEntity> players = control.findAllPlayers();
-		/*
     	model.addAttribute("sectionName", "Jugadores");
     	model.addAttribute("items", players);
     	model.addAttribute("sectionID", "player");
     	model.addAttribute("isPlayersList", true);
-    	//updateCurrentPlayer(model);
-    	if(control.findPlayerById(currentPlayer.getCurrentName()).isPresent()) {
+    	updateCurrentPlayer(model);
+    	/*if(control.findPlayerById(currentPlayer.getCurrentName()).isPresent()) {
     		System.out.println("ROLES 2:" + control.findPlayerById(currentPlayer.getCurrentName()).get().getRoles());
         	model.addAttribute("isAdmin", control.findPlayerById(currentPlayer.getCurrentName()).get().getRoles().contains("ADMIN"));
     	}else {
     		model.addAttribute("isAdmin", false);
-    	}
-    	System.out.println("WEEEEEEEEEEEEEEEEEEEEEEEE");*/
-		model.addAttribute("sectionName", "Jugadores");
-    	model.addAttribute("items", players);
-    	model.addAttribute("sectionID", "player");
-    	model.addAttribute("isPlayersList", true);
-    	model.addAttribute("admin", false);
-    	model.addAttribute("test", false);
+    	}*/
+
     	return "list_template";
     }
 	
