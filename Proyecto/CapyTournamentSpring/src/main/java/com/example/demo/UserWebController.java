@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class UserWebController extends BasicWebController{
@@ -54,9 +55,13 @@ public class UserWebController extends BasicWebController{
 	model.addAttribute("hasDescription", true);
 	model.addAttribute("hasImage", true);
 	
+	RestTemplate rt = new RestTemplate();
+    String url = "http://localhost:8080/sendMail?correo=" + email + "&nombre=" + username;
+    Boolean b = rt.getForObject(url, Boolean.class);
+	
 	updateCurrentPlayer(model);
 	return "login";
-}
+    }
 
 @GetMapping("/loginerror")
 public String loginerror() {
