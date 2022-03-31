@@ -134,4 +134,8 @@ public class PlayerEntity {
 	public String getPassword() {
 		return passwordHash;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
 }

@@ -56,8 +56,9 @@ public class UserWebController extends BasicWebController{
 	model.addAttribute("hasImage", true);
 	
 	RestTemplate rt = new RestTemplate();
-    String url = "http://localhost:8080/sendMail?correo=" + email + "&nombre=" + username;
-    Boolean b = rt.getForObject(url, Boolean.class);
+    String url = "http://localhost:8080/sendMailRegister?email=" + email + "&name=" + username;
+    rt.postForEntity(url, null, String.class);
+    //Boolean b = rt.getForObject(url, Boolean.class);
 	
 	updateCurrentPlayer(model);
 	return "login";

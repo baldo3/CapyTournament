@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class Tournament extends BasicWebController{
@@ -108,6 +109,26 @@ public class Tournament extends BasicWebController{
 	public String gamePlayed(Model model, @RequestParam String champion1, @RequestParam String champion2, @RequestParam String champion3,
 			@RequestParam String champion4, @RequestParam String champion5, @RequestParam String result, @PathVariable String teamName) {
     	System.out.println(teamName + " - " + result + ": " +champion1 + ", " + champion2 + ", " + champion3 + ", " + champion4 + ", " + champion5);
+    	if(result.equals("victory")) {
+    		RestTemplate rt = new RestTemplate();
+    		TeamEntity team = teamControl.findTeamById(teamName).get();
+    		
+            String url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(0).getEmail() + "&playerName=" + team.getPlayers().get(0).getName() + "&teamName=" + teamName + "&championName=" + champion1;
+            rt.postForEntity(url, null, String.class);
+            
+            url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(1).getEmail() + "&playerName=" + team.getPlayers().get(1).getName() + "&teamName=" + teamName + "&championName=" + champion2;
+            rt.postForEntity(url, null, String.class);
+            
+            url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(2).getEmail() + "&playerName=" + team.getPlayers().get(2).getName() + "&teamName=" + teamName + "&championName=" + champion3;
+            rt.postForEntity(url, null, String.class);
+            
+            url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(3).getEmail() + "&playerName=" + team.getPlayers().get(3).getName() + "&teamName=" + teamName + "&championName=" + champion4;
+            rt.postForEntity(url, null, String.class);
+            
+            url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(4).getEmail() + "&playerName=" + team.getPlayers().get(4).getName() + "&teamName=" + teamName + "&championName=" + champion5;
+            rt.postForEntity(url, null, String.class);
+    	}
+    	
 		return "login";
 	}
 }
