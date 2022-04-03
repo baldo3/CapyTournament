@@ -61,9 +61,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  http.authorizeHttpRequests().antMatchers("/play_game/*/*").hasAnyRole("ADMIN");
  http.authorizeHttpRequests().antMatchers("/play_game/*").hasAnyRole("ADMIN");
  
- //http.authorizeHttpRequests().antMatchers("/join_team/*").hasAnyRole("PLAYER");
- //http.authorizeHttpRequests().antMatchers("/join_tournament/*").hasAnyRole("PLAYER");
- //http.authorizeHttpRequests().antMatchers("/create_team").hasAnyRole("PLAYER");
 
  
  // Private pages (all other pages)
@@ -75,10 +72,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  http.formLogin().defaultSuccessUrl("/home");
  http.formLogin().failureUrl("/loginerror");
  // Logout
- http.logout().logoutUrl("/logout");
+ http.logout().logoutUrl("/");
  http.logout().logoutSuccessUrl("/");
 
  // Disable CSRF at the moment
- http.csrf().disable();
+ //http.csrf().disable();
  }
 }

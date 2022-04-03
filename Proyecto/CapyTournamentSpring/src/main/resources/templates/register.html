@@ -12,10 +12,12 @@
 	<label><input type='checkbox' name="isAdmin">Registrarse como admin</label>
 	<p> </p>
 	<input type='submit' value='Registrarse'/>
+	<input type='hidden' name='_csrf' value='{{token}}'/>
 	</form action="/login">
 	<p> </p>
 	<form action="/login" method="GET">
 	<input type='submit' value='Iniciar sesión >'/>
+	<input type='hidden' name='_csrf' value='{{token}}'/>
 	</form>
 	
 	

@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +31,7 @@ public class Team extends BasicWebController{
 	private PlayerControl playerControl;
 	
 	@GetMapping("/team")
-    public String visitTeam(Model model, @RequestParam String name) {
+    public String visitTeam(Model model, @RequestParam String name, HttpServletRequest request) {
 		Optional<TeamEntity> team = control.findTeamById(name);
     	model.addAttribute("name", name);
     	List<PlayerEntity> players = null;
@@ -61,11 +64,13 @@ public class Team extends BasicWebController{
     	model.addAttribute("players", players);
     	model.addAttribute("description", motto);
     	updateCurrentPlayer(model);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "team_template";
     }
 	
 	@PostMapping("/team")
-	public String teamPost(Model model, @RequestParam String name, @RequestParam String motto){
+	public String teamPost(Model model, @RequestParam String name, @RequestParam String motto, HttpServletRequest request){
 		TeamEntity team = new TeamEntity(name, motto);
 		control.newTeam(team);
 		PlayerEntity player = playerControl.findPlayerById(currentPlayer.getCurrentName()).get();
@@ -89,11 +94,13 @@ public class Team extends BasicWebController{
     	model.addAttribute("description", motto);
     	model.addAttribute("isMyTeam", this.belongs(playerControl.findPlayerById(currentPlayer.getCurrentName()).get(), team));
     	updateCurrentPlayer(model);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "team_template";
 	}
 	
 	@GetMapping("/teams_list")
-    public String visitTeamsList(Model model) {
+    public String visitTeamsList(Model model, HttpServletRequest request) {
 		List<TeamEntity> teams = control.findAllTeams();
 		Optional<PlayerEntity> player = playerControl.findPlayerById(currentPlayer.getCurrentName());
 		boolean playerFree = false;
@@ -114,17 +121,21 @@ public class Team extends BasicWebController{
     	model.addAttribute("isTeamsList", true);
     	updateCurrentPlayer(model);
 
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "list_template";
     }
 	
 	@GetMapping("/create_team")
-	public String teamForm(Model model) {
+	public String teamForm(Model model, HttpServletRequest request) {
 		updateCurrentPlayer(model);
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "create_team_template";
 	}
 	
 	@PostMapping("/delete_team/{id}")
-	public String visitTeamsListAfterDelete(Model model, @PathVariable String id) {
+	public String visitTeamsListAfterDelete(Model model, @PathVariable String id, HttpServletRequest request) {
 		TeamEntity t = control.findTeamById(id).orElseThrow();
 		
 		t.getPlayers().forEach((p)->{
@@ -154,11 +165,13 @@ public class Team extends BasicWebController{
     	
     	
     	updateCurrentPlayer(model);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "list_template";
 	}
 	
 	@PostMapping("/join_team/{id}")
-	public String visitTeamAfterJoin(Model model, @PathVariable String id) {
+	public String visitTeamAfterJoin(Model model, @PathVariable String id, HttpServletRequest request) {
 		TeamEntity t = control.findTeamById(id).get();
 		PlayerEntity p = playerControl.findPlayerById(currentPlayer.getCurrentName()).get();
 		control.joinTeam(t, p);
@@ -190,6 +203,8 @@ public class Team extends BasicWebController{
     	model.addAttribute("description", motto);
     	model.addAttribute("isMyTeam", this.belongs(playerControl.findPlayerById(currentPlayer.getCurrentName()).get(), team.get()));
     	updateCurrentPlayer(model);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "team_template";
 	}
 	

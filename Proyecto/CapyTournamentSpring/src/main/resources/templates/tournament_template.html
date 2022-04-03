@@ -13,6 +13,7 @@
  	<td>{{points}}</td>
  	{{^isGame}}
  	<td>{{#isAdminLog}}<form action="/play_game/{{tournamentName}}/{{name}}" method="get"><input type='submit'  class="adminButton" value='Jugar'/></form>{{/isAdminLog}}</td>
+ 	<input type='hidden' name='_csrf' value='{{token}}'/>
  	{{/isGame}}
  	</tr>
  	{{/teams}}
@@ -54,6 +55,7 @@
 	DERROTA
 	<br>
 	<input type='submit' value='Confirmar'/>
+ 	<input type='hidden' name='_csrf' value='{{token}}'/>
 	</form>
 	
 	</div id="playGame">

@@ -14,6 +14,7 @@
 	{{#isTournamentsList}}
 	{{#isAdminLog}}
 	<form action="/create_tournament"><input type='submit' class="adminButton" value='Crear torneo'/></form>
+ 	<input type='hidden' name='_csrf' value='{{token}}'/>
 	{{/isAdminLog}}
 	{{/isTournamentsList}}
 	
@@ -21,6 +22,7 @@
 	{{#playerFree}}
 	{{#isLogged}}
 	<form action="/create_team"><input type='submit' class="playerButton" value='Crear equipo'/></form>
+ 	<input type='hidden' name='_csrf' value='{{token}}'/>
 	{{/isLogged}}
 	{{/playerFree}}
 	{{/isTeamsList}}
@@ -28,6 +30,7 @@
 	{{#isChampionsList}}
 	{{#isAdminLog}}
 	<form action="/create_champion"><input type='submit' class="adminButton" value='Crear campeón'/></form>
+ 	<input type='hidden' name='_csrf' value='{{token}}'/>
 	{{/isAdminLog}}
 	{{/isChampionsList}}
 	
@@ -40,6 +43,7 @@
  	<td>{{#isTournamentsList}}
  	{{#isLogged}}
  	{{#hasTeam}}<form action="/join_tournament/{{name}}" method="post"><input type='submit' class="playerButton" value='Inscribirse'/></form>{{/hasTeam}}
+ 	<input type='hidden' name='_csrf' value='{{token}}'/>
  	{{/isLogged}}
  	{{/isTournamentsList}}</td>
  	
@@ -48,17 +52,20 @@
  	{{#playerFree}}{{#available}}<form action="/join_team/{{name}}" method="post"><input type='submit'  class="playerButton" value='Unirse'/></form>{{/available}}{{/playerFree}}
  	{{/isLogged}}
  	{{#isAdminLog}}<form action="/delete_team/{{name}}" method="post"><input type='submit'  class="adminButton" value='Eliminar'/></form>{{/isAdminLog}}
+ 	<input type='hidden' name='_csrf' value='{{token}}'/>
  	{{/isTeamsList}}</td>
  	
  	
  	<td>{{#isPlayersList}}
  	{{#isAdminLog}}<form action="/delete_player/{{name}}" method="post"><input type='submit'  class="adminButton" value='Banear'/></form>{{/isAdminLog}}
+ 	<input type='hidden' name='_csrf' value='{{token}}'/>
  	{{/isPlayersList}}</td>
  	
  	
  	<td>{{#isChampionsList}}
  	{{#isAdminLog}}
  	<form action="/delete_champion/{{name}}" method="post"><input type='submit' class="adminButton" value='Eliminar'/></form>
+ 	<input type='hidden' name='_csrf' value='{{token}}'/>
  	{{/isAdminLog}}
  	{{/isChampionsList}}</td>
  	</tr>

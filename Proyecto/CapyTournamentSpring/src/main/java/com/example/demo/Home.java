@@ -4,17 +4,23 @@ import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class Home extends BasicWebController{
 	
 	@Autowired
     private ChampionControl championControl;
+	
+	@Autowired
+	protected PlayerSession currentPlayer;
 	
 	@Autowired
     private TeamControl teamControl;
@@ -26,7 +32,7 @@ public class Home extends BasicWebController{
 	private TournamentControl tournamentControl;
 	
 	@GetMapping("/home")
-    public String sayHello(Model model, HttpSession session) {
+    public String sayHello(Model model, HttpSession session, HttpServletRequest request) {
 		String homeText = new String("CapyTournament es tu herramienta de creación de torneos, de amateurs para amateurs.\r\n"
 				+ "¡Crea tu equipo, inscríbete a un torneo y compite!");
     	model.addAttribute("sectionName", "Inicio");
@@ -34,11 +40,13 @@ public class Home extends BasicWebController{
     	model.addAttribute("hasDescription", true);
     	model.addAttribute("hasImage", true);  	
     	updateCurrentPlayer(model);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "list_template";
     }
 	
 	@GetMapping("/")
-    public String start(Model model, HttpSession session) {
+    public String start(Model model, HttpSession session, HttpServletRequest request) {
 		String homeText = new String("CapyTournament es tu herramienta de creación de torneos, de amateurs para amateurs.\r\n"
 				+ "¡Crea tu equipo, inscríbete a un torneo y compite!");
     	model.addAttribute("sectionName", "Inicio");
@@ -46,11 +54,12 @@ public class Home extends BasicWebController{
     	model.addAttribute("hasDescription", true);
     	model.addAttribute("hasImage", true);
     	
-    	Optional<PlayerEntity> player = playerControl.findPlayerById("Usuario");
-    	if(player.isPresent()) {
-    		session.setAttribute("CurrentUser", player.get());
-    	}    	
+    	currentPlayer.setLogged(false);
+    	currentPlayer.setCurrentName("");
     	updateCurrentPlayer(model);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
+
     	return "list_template";
     }
 	

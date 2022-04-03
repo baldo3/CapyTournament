@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +26,7 @@ public class Player extends BasicWebController{
 	private PlayerSession currentPlayer;
 	
 	@GetMapping("/player")
-    public String visitPlayer(Model model, @RequestParam String name) {
+    public String visitPlayer(Model model, @RequestParam String name, HttpServletRequest request) {
 		Optional<PlayerEntity> player = control.findPlayerById(name);
 		String teamName = "Sin equipo";
 		boolean hasTeam = false;
@@ -38,11 +41,13 @@ public class Player extends BasicWebController{
 		model.addAttribute("teamName", teamName);
     	model.addAttribute("name", name);
     	updateCurrentPlayer(model);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "player_template";
     }
 	
 	@PostMapping("/leave_my_team")
-    public String visitPlayerAfterLeaveTeam(Model model) {
+    public String visitPlayerAfterLeaveTeam(Model model, HttpServletRequest request) {
 		PlayerEntity player = control.findPlayerById(currentPlayer.getCurrentName()).get();
 		player.leaveTeam();
 		
@@ -53,11 +58,13 @@ public class Player extends BasicWebController{
 		model.addAttribute("teamName", teamName);
     	model.addAttribute("name", player.getName());
     	updateCurrentPlayer(model);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "player_template";
     }
 	
 	@GetMapping("/players_list")
-    public String visitPlayersList(Model model) {
+    public String visitPlayersList(Model model, HttpServletRequest request) {
 		List<PlayerEntity> players = control.findAllPlayers();
     	model.addAttribute("sectionName", "Jugadores");
     	model.addAttribute("items", players);
@@ -71,11 +78,13 @@ public class Player extends BasicWebController{
     		model.addAttribute("isAdmin", false);
     	}*/
 
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "list_template";
     }
 	
 	@PostMapping("/delete_player/{id}")
-	public String visitPlayerListAfterDelete(Model model, @PathVariable String id) {
+	public String visitPlayerListAfterDelete(Model model, @PathVariable String id, HttpServletRequest request) {
 		control.findPlayerById(id).get().leaveTeam();
 		control.deletePlayerById(id);
 		List<PlayerEntity> players = control.findAllPlayers();
@@ -84,6 +93,8 @@ public class Player extends BasicWebController{
     	model.addAttribute("sectionID", "player");
     	model.addAttribute("isPlayersList", true);
     	updateCurrentPlayer(model);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "list_template";
 	}
 }

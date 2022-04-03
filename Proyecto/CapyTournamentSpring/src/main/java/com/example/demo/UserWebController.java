@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,18 +31,24 @@ public class UserWebController extends BasicWebController{
 	}
 	
 	@GetMapping("/login")
-	public String getLogin() {
+	public String getLogin(Model model, HttpServletRequest request) {
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
+        
     	return "login";
 	}
 
 	@GetMapping("/register")
-	public String getRegister() {
+	public String getRegister(Model model, HttpServletRequest request) {
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
+        
     	return "register";
 	}
 
 	@PostMapping("/register")
 	public String postRegister(Model model, @RequestParam String username, @RequestParam String email,
-		 @RequestParam String password, @RequestParam(value="isAdmin", required=false) String isAdmin) {
+		 @RequestParam String password, @RequestParam(value="isAdmin", required=false) String isAdmin, HttpServletRequest request) {
 	 boolean isAdminBool = false;
 	 if(isAdmin != null) {
 		 isAdminBool = true;
@@ -60,17 +67,24 @@ public class UserWebController extends BasicWebController{
     rt.postForEntity(url, null, String.class);
     //Boolean b = rt.getForObject(url, Boolean.class);
 	
+    CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    model.addAttribute("token", token.getToken());
+    
 	updateCurrentPlayer(model);
 	return "login";
     }
 
 @GetMapping("/loginerror")
-public String loginerror() {
+public String loginerror(Model model, HttpServletRequest request) {
+	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    model.addAttribute("token", token.getToken());
 return "loginerror";
 }
 
 @GetMapping("/error")
-public String error() {
+public String error(Model model, HttpServletRequest request) {
+	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    model.addAttribute("token", token.getToken());
 return "login";
 }
 	

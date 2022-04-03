@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,17 +37,19 @@ public class Tournament extends BasicWebController{
 	 private ChampionControl championControl;
 	
 	@GetMapping("/tournament")
-    public String visitTournament(Model model, @RequestParam String name) {
+    public String visitTournament(Model model, @RequestParam String name, HttpServletRequest request) {
 		TournamentEntity tournament = control.findTournamentByName(name);
         model.addAttribute("tournamentName", name);
         List<TeamEntity> teams = tournament.getTeams();
     	model.addAttribute("teams", teams);
     	updateCurrentPlayer(model);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	return "tournament_template";
     }
 	
 	@GetMapping("/tournaments_list")
-    public String visitTournamentsList(Model model) {
+    public String visitTournamentsList(Model model, HttpServletRequest request) {
 		List<TournamentEntity> tournaments = control.findAllTournaments();
 		
     	model.addAttribute("sectionName", "Torneos");
@@ -53,28 +57,33 @@ public class Tournament extends BasicWebController{
     	model.addAttribute("items", tournaments);
     	model.addAttribute("isTournamentsList", true);
     	updateCurrentPlayer(model);
-
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
+        
     	return "list_template";
     }
 	
 	@PostMapping("/tournament")
-	public String visitTournamentAfterCreate(Model model, @RequestParam String name) {
+	public String visitTournamentAfterCreate(Model model, @RequestParam String name, HttpServletRequest request) {
 		control.newTournament(name);
 		model.addAttribute("tournamentName", name);
 		
-		
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
 		updateCurrentPlayer(model);
     	return "tournament_template";
 	}
 	
 	@GetMapping("/create_tournament")
-	public String visitCreateTournament(Model model) {
+	public String visitCreateTournament(Model model, HttpServletRequest request) {
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
 		updateCurrentPlayer(model);
     	return "create_tournament_template";
 	}
 	
 	@PostMapping("/join_tournament/{tournamentName}")
-	public String visitTournamentAfterJoin(Model model, @PathVariable String tournamentName) {
+	public String visitTournamentAfterJoin(Model model, @PathVariable String tournamentName, HttpServletRequest request) {
 		TournamentEntity tournament = control.findTournamentByName(tournamentName);
 		PlayerEntity player = playerControl.findPlayerById(currentPlayer.getCurrentName()).get();
 		TeamEntity team = player.getTeam();
@@ -84,12 +93,14 @@ public class Tournament extends BasicWebController{
 		model.addAttribute("tournamentName", tournamentName);
         List<TeamEntity> teams = tournament.getTeams();
     	model.addAttribute("teams", teams);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	updateCurrentPlayer(model);
     	return "tournament_template";
 	}
 	
 	@GetMapping("/play_game/{tournamentName}/{teamName}")
-	public String visitGame(Model model, @PathVariable String teamName, @PathVariable String tournamentName) {
+	public String visitGame(Model model, @PathVariable String teamName, @PathVariable String tournamentName, HttpServletRequest request) {
 		TournamentEntity tournament = control.findTournamentByName(tournamentName);
         model.addAttribute("tournamentName", tournamentName);
         model.addAttribute("teamName", teamName);
@@ -101,13 +112,15 @@ public class Tournament extends BasicWebController{
     	model.addAttribute("players", players);
     	List<ChampionEntity> champions = championControl.findAllChampions();
     	model.addAttribute("champions", champions);
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
     	updateCurrentPlayer(model);
     	return "tournament_template";
 	}
 	
 	@PostMapping("/game_played/{teamName}")
 	public String gamePlayed(Model model, @RequestParam String champion1, @RequestParam String champion2, @RequestParam String champion3,
-			@RequestParam String champion4, @RequestParam String champion5, @RequestParam String result, @PathVariable String teamName) {
+			@RequestParam String champion4, @RequestParam String champion5, @RequestParam String result, @PathVariable String teamName, HttpServletRequest request) {
     	System.out.println(teamName + " - " + result + ": " +champion1 + ", " + champion2 + ", " + champion3 + ", " + champion4 + ", " + champion5);
     	if(result.equals("victory")) {
     		RestTemplate rt = new RestTemplate();
@@ -128,7 +141,8 @@ public class Tournament extends BasicWebController{
             url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(4).getEmail() + "&playerName=" + team.getPlayers().get(4).getName() + "&teamName=" + teamName + "&championName=" + champion5;
             rt.postForEntity(url, null, String.class);
     	}
-    	
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
 		return "login";
 	}
 }
