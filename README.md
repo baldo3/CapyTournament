@@ -92,4 +92,6 @@ DIAGRAMA ENTIDAD/RELACIÓN:
 DIAGRAMA DE CLASES UML:
 ![imagen](https://user-images.githubusercontent.com/46084814/155016159-9accd158-5a18-4b55-9c9a-246b479de3c6.png)
 
+# 🟢 FASE 3
+![DCFase3](https://user-images.githubusercontent.com/46084814/161747495-b0b45a1e-0b23-45b6-9bf9-1a27a104d954.jpg)
 
