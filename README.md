@@ -126,7 +126,7 @@ Una vez compilados los dos proyectos, los siguientes pasos se deberán realizar 
  De nuevo en la terminal de comandos escribir:
    - **mysql -u root -p** Pedirá una contraseña, escribir "capyt"
 
- En mmysql ejecutar:
+ En mysql ejecutar:
    - **CREATE DATABASE capytournament;**
    - **CREATE USER 'root'@'localhost' IDENTIFIED BY 'capyt';**
    - GRANT ALL PRIVILEGES ON capytournament.* TO 'root'@'localhost';
