@@ -116,22 +116,25 @@ Una vez compilados los dos proyectos, los siguientes pasos se deberán realizar 
 
 - Instalar Java (JRE) 17 o superior ejecutando en la terminal de comandos: **sudo apt install openjdk-17-jre-headless**
 - Instalar MySQL ejecutando los siguientes comandos en la terminal:
-  - **sudo apt install mysql-server-8.0**
-  - **sudo mysql**
+    - **sudo apt install mysql-server-8.0**
+    - **sudo mysql**
   
   Con mysql abierto ejecutar:
-  - **ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'capyt';**
-  - **quit;**
+    - **ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'capyt';**
+    - **quit;**
  
  De nuevo en la terminal de comandos escribir:
-  - **mysql -u root -p** Pedirá una contraseña, escribir "capyt"
+    - **mysql -u root -p** Pedirá una contraseña, escribir "capyt"
 
  En mmysql ejecutar:
-  - **CREATE DATABASE capytournament;**
-  - **CREATE USER 'root'@'localhost' IDENTIFIED BY 'capyt';**
-  - GRANT ALL PRIVILEGES ON capytournament.* TO 'root'@'localhost';
-  - **flush privileges;**
-  - **quit;**
+    - **CREATE DATABASE capytournament;**
+    - **CREATE USER 'root'@'localhost' IDENTIFIED BY 'capyt';**
+    - GRANT ALL PRIVILEGES ON capytournament.* TO 'root'@'localhost';
+    - **flush privileges;**
+    - **quit;**
+    
+    
+Por último:
 - Obtener los dos ejecutables que se compilaron en la máquina local
 - Ejecutar una terminal de comandos y dirigirse al directorio donde se encuentran los dos ejecutables
 - Ejecutar el comando **sudo java -jar** seguido del nombre del ejecutable de la aplicación principal y después ejecutar el mismo comando con el nombre del ejecutable del servidor interno.
