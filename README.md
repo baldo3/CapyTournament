@@ -95,3 +95,36 @@ DIAGRAMA DE CLASES UML:
 # 🟢 FASE 3
 ![DCFase3](https://user-images.githubusercontent.com/46084814/161747495-b0b45a1e-0b23-45b6-9bf9-1a27a104d954.jpg)
 
+## Instrucciones de ejecución en máquina virtual ##
+COMPILACIÓN
+Los siguientes pasos descritos son para realizar la compilación de los dos proyectos, tanto de la aplicación web como del servidor interno. Los pasos están descritos para un sistema Windows.
+- Instalar el JDK de Java 17 o posterior 
+- Instalar MySQL Server y a continuación crear una base de datos llamada "capytournament" con usuario "root" y contraseña "capyt"
+- Descargar Maven y descomprimir la carpeta
+- Crear (si no está creada ya) la variable de entorno JAVA_HOME y hacer que apunte al directorio raíz de JDK
+- Hacer que la variable de entorno PATH apunte a la carpeta de Maven y a la carpeta bin del JDK
+- Ejecutar la terminal de comandos y dirigirse hacia el directorio de la aplicación web (CapyTournamentSpring)
+- Ejecutar **mvn clean package** si hay carpeta target en el proyecto, en el caso contrario ejecutar **mvn package**
+- Realizar los dos pasos anteriores para el proyecto del Servicio Interno (ServicioInterno)
+- Los ejecutables de ambas aplicaciones (.jar) se encontrarán en la carpeta target.
+
+EJECUCIÓN EN MÁQUINA VIRTUAL
+Una vez compilados los dos proyectos, los siguientes pasos se deberán realizar desde una máquina virtual (los pasos están descritos con un SO Ubuntu 20)
+- Instalar Java (JRE) 17 o superior ejecutando en la terminal de comandos: **sudo apt install openjdk-17-jre-headless**
+- Instalar MySQL ejecutando los siguientes comandos en la terminal:
+  - **sudo apt install mysql-server-8.0**
+  - **sudo mysql**
+  Con mysql abierto ejecutar:
+  - ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'capyt';
+  - **quit;**
+  De nuevo en la terminal de comandos:
+  - **mysql -u root -p** Pedirça una contraseña, escribir "capyt"
+  - **CREATE DATABASE capytournament;**
+  - **CREATE USER 'root'@'localhost' IDENTIFIED BY 'capyt';
+  - **GRANT ALL PRIVILEGES ON capytournament.* TO 'root'@'localhost';**
+  - **flush privileges;**
+  - **quit;**
+- Obtener los dos ejecutables que se compilaron en la máquina local
+- Ejecutar una terminal de comandos y dirigirse al directorio donde se encuentran los dos ejecutables
+- Ejecutar el comando **sudo java -jar** seguido del nombre del ejecutable de la aplicación principal y después ejecutar el mismo comando con el nombre del ejecutable del servidor interno.
+
