@@ -145,3 +145,25 @@ p.wip{
 	color: white;
 	background-color: darkred;
 }
+
+#playGame{
+	background-color: rebeccapurple;
+}
+
+#playGame h1{
+	background-color: black;
+	color: orange;
+}
+
+#playGame h2{
+	color: white;
+}
+
+#playGame td{
+	color: white;
+}
+
+#playGame p{
+	display: inline-block;
+	color: white;
+}

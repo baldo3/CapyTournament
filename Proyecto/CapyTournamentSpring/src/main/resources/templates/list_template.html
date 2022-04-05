@@ -19,12 +19,12 @@
 	{{/isTournamentsList}}
 	
 	{{#isTeamsList}}
-	{{#playerFree}}
+	
 	{{#isLogged}}
 	<form action="/create_team"><input type='submit' class="playerButton" value='Crear equipo'/></form>
  	<input type='hidden' name='_csrf' value='{{token}}'/>
 	{{/isLogged}}
-	{{/playerFree}}
+	
 	{{/isTeamsList}}
 	
 	{{#isChampionsList}}

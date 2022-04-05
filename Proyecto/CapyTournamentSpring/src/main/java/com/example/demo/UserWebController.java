@@ -37,7 +37,7 @@ public class UserWebController extends BasicWebController{
         
     	return "login";
 	}
-
+	
 	@GetMapping("/register")
 	public String getRegister(Model model, HttpServletRequest request) {
 		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
