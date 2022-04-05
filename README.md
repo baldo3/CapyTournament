@@ -99,6 +99,7 @@ DIAGRAMA DE CLASES UML:
 COMPILACIÓN:
 
 Los siguientes pasos descritos son para realizar la compilación de los dos proyectos, tanto de la aplicación web como del servidor interno. Los pasos están descritos para un sistema Windows.
+
 - Instalar el JDK de Java 17 o posterior 
 - Instalar MySQL Server y a continuación crear una base de datos llamada "capytournament" con usuario "root" y contraseña "capyt"
 - Descargar Maven y descomprimir la carpeta
@@ -112,17 +113,19 @@ Los siguientes pasos descritos son para realizar la compilación de los dos proy
 EJECUCIÓN EN MÁQUINA VIRTUAL:
 
 Una vez compilados los dos proyectos, los siguientes pasos se deberán realizar desde una máquina virtual (los pasos están descritos con un SO Ubuntu 20)
+
 - Instalar Java (JRE) 17 o superior ejecutando en la terminal de comandos: **sudo apt install openjdk-17-jre-headless**
 - Instalar MySQL ejecutando los siguientes comandos en la terminal:
   - **sudo apt install mysql-server-8.0**
   - **sudo mysql**
+  
   Con mysql abierto ejecutar:
-  - ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'capyt';
+  - **ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'capyt';**
   - **quit;**
   De nuevo en la terminal de comandos:
   - **mysql -u root -p** Pedirça una contraseña, escribir "capyt"
   - **CREATE DATABASE capytournament;**
-  - **CREATE USER 'root'@'localhost' IDENTIFIED BY 'capyt';
+  - **CREATE USER 'root'@'localhost' IDENTIFIED BY 'capyt';**
   - **GRANT ALL PRIVILEGES ON capytournament.* TO 'root'@'localhost';**
   - **flush privileges;**
   - **quit;**
