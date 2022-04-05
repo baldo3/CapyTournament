@@ -112,7 +112,7 @@ Los siguientes pasos descritos son para realizar la compilación de los dos proy
 
 EJECUCIÓN EN MÁQUINA VIRTUAL:
 
-Una vez compilados los dos proyectos, los siguientes pasos se deberán realizar desde una máquina virtual (los pasos están descritos con un SO Ubuntu 20)
+Una vez compilados los dos proyectos, los siguientes pasos se deberán realizar desde una máquina virtual (los pasos están descritos con un SO Ubuntu 20).
 
 - Instalar Java (JRE) 17 o superior ejecutando en la terminal de comandos: **sudo apt install openjdk-17-jre-headless**
 - Instalar MySQL ejecutando los siguientes comandos en la terminal:
@@ -122,11 +122,12 @@ Una vez compilados los dos proyectos, los siguientes pasos se deberán realizar 
   Con mysql abierto ejecutar:
   - **ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'capyt';**
   - **quit;**
-  De nuevo en la terminal de comandos:
-  - **mysql -u root -p** Pedirça una contraseña, escribir "capyt"
+ 
+ De nuevo en la terminal de comandos:
+  - **mysql -u root -p** Pedirá una contraseña, escribir "capyt"
   - **CREATE DATABASE capytournament;**
   - **CREATE USER 'root'@'localhost' IDENTIFIED BY 'capyt';**
-  - **GRANT ALL PRIVILEGES ON capytournament.* TO 'root'@'localhost';**
+  - GRANT ALL PRIVILEGES ON capytournament.* TO 'root'@'localhost';
   - **flush privileges;**
   - **quit;**
 - Obtener los dos ejecutables que se compilaron en la máquina local
