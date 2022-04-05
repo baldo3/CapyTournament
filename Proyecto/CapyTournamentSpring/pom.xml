@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>NewGamesRealeased</artifactId>
+	<artifactId>CapyTournament</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>NewGamesRealeased</name>
+	<name>CapyTournament</name>
 	<description>Practica</description>
 	<properties>
 		<java.version>11</java.version>
@@ -29,7 +29,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+    		<groupId>javax.xml.bind</groupId>
+    		<artifactId>jaxb-api</artifactId>
+    		<version>2.3.0</version>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
