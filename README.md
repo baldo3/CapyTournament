@@ -96,7 +96,8 @@ DIAGRAMA DE CLASES UML:
 ![DCFase3](https://user-images.githubusercontent.com/46084814/161747495-b0b45a1e-0b23-45b6-9bf9-1a27a104d954.jpg)
 
 ## Instrucciones de ejecución en máquina virtual ##
-COMPILACIÓN
+COMPILACIÓN:
+
 Los siguientes pasos descritos son para realizar la compilación de los dos proyectos, tanto de la aplicación web como del servidor interno. Los pasos están descritos para un sistema Windows.
 - Instalar el JDK de Java 17 o posterior 
 - Instalar MySQL Server y a continuación crear una base de datos llamada "capytournament" con usuario "root" y contraseña "capyt"
@@ -108,7 +109,8 @@ Los siguientes pasos descritos son para realizar la compilación de los dos proy
 - Realizar los dos pasos anteriores para el proyecto del Servicio Interno (ServicioInterno)
 - Los ejecutables de ambas aplicaciones (.jar) se encontrarán en la carpeta target.
 
-EJECUCIÓN EN MÁQUINA VIRTUAL
+EJECUCIÓN EN MÁQUINA VIRTUAL:
+
 Una vez compilados los dos proyectos, los siguientes pasos se deberán realizar desde una máquina virtual (los pasos están descritos con un SO Ubuntu 20)
 - Instalar Java (JRE) 17 o superior ejecutando en la terminal de comandos: **sudo apt install openjdk-17-jre-headless**
 - Instalar MySQL ejecutando los siguientes comandos en la terminal:
