@@ -10,11 +10,6 @@ public class PlayerSession {
 	
 	private String currentName = "invitado";
 	
-	private boolean errorUsuario = false;
-	private boolean errorContra = false;
-	private boolean datosInsuficientes = false;
-	private boolean baneado=false;
-	private boolean usuarioBaneadoConExito= false;
 	private boolean isLogged = false;
 	
 	public PlayerSession() {

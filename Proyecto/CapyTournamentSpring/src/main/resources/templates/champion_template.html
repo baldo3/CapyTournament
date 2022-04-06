@@ -15,7 +15,6 @@
 	<div id="buttons">
 	{{#isAdminLog}}
 	<form action="/delete_champion/{{name}}" method="post"><input type='submit' class="adminButton" value='Eliminar'/></form>
-	<input type='hidden' name='_csrf' value='{{token}}'/>
 	{{/isAdminLog}}
 	</div>
 	

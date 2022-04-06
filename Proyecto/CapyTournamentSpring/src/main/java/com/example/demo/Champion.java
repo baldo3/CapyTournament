@@ -36,8 +36,6 @@ public class Champion extends BasicWebController{
 		control.newChampion(name);
 		model.addAttribute("name", name);
 		updateCurrentPlayer(model);
-		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
     	return "champion_template";
 	}
 	
@@ -74,8 +72,6 @@ public class Champion extends BasicWebController{
 	    	model.addAttribute("isChampionsList", true);
 	    	
 	    	updateCurrentPlayer(model);
-	    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-	        model.addAttribute("token", token.getToken());
 	    	return "list_template";
 		}
 	}

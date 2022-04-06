@@ -81,12 +81,12 @@ public String loginerror(Model model, HttpServletRequest request) {
 return "loginerror";
 }
 
-@GetMapping("/error")
+/*@GetMapping("/error")
 public String error(Model model, HttpServletRequest request) {
 	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
     model.addAttribute("token", token.getToken());
 return "login";
-}
+}*/
 	
 
 }

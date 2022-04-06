@@ -55,7 +55,7 @@ public class Home extends BasicWebController{
     	model.addAttribute("hasImage", true);
     	
     	currentPlayer.setLogged(false);
-    	currentPlayer.setCurrentName("");
+    	currentPlayer.setCurrentName("invitado");
     	updateCurrentPlayer(model);
     	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
         model.addAttribute("token", token.getToken());
