@@ -5,18 +5,19 @@ Completada con estadísticas sobre partidos, jugadores y campeones.
 # 🟢 FASE 1
 
 ## 🌎 Parte pública ##
-- Ver los torneos existentes, equipos y jugadores participantes y resultados.
-- Consultar las estadísticas de cualquier torneo, equippo, jugador o campeón (personaje).
+- Ver los torneos existentes, equipos, jugadores participantes y campeones (personajes).
 
 ## 🔒 Parte privada ##
 JUGADOR:
-- Crear un equipo o unirse a uno ya existente.
-- Si es capitán, inscribir su equipo a un torneo.
+- Crear un equipo.
+- Unirse a un equipo ya existente.
+- Inscribirse a un torneo.
 
 ADMINISTRADOR:
 - Crear un torneo.
-- Gestionar los resultados de los encuentros (equipo ganador y estadísticas)
-- Si fuese necesario, expulsar equipos del sistema.
+- Gestionar los resultados de los encuentros (equipo ganador y campeones utilizados)
+- Crear o eliminar campeones.
+- Si fuese necesario, expulsar equipos o jugadores del sistema.
 
 
 ## 📦 Entidades ##
@@ -27,8 +28,9 @@ ADMINISTRADOR:
 - Campeón (Personaje): puede ser jugado por varios jugadores (máximo una vez por partido) y también tiene sus propias estadísticas.
 
 ## 🔧 Funcionalidades del servicio interno ##
-- Envío de correos electrónicos a los participantes horas antes de sus partidos.
-- Elaboración de las estadísticas en base a los datos almacenados en la BDD.
+- Envío de correos electrónicos a los nuevos jugadores registrados.
+- Envío de correos electrónicos a todos los jugadores cuando su equipo gana un partido.
+
 
 # 🟢 FASE 2
 La aplicación implementa la navegación principal y hace uso completo de la base de datos.
@@ -93,6 +95,12 @@ DIAGRAMA DE CLASES UML:
 ![imagen](https://user-images.githubusercontent.com/46084814/155016159-9accd158-5a18-4b55-9c9a-246b479de3c6.png)
 
 # 🟢 FASE 3
+Se ha añadido seguridad a la aplicación (protocolo HTTPS, varios niveles de permisos, sistema de login y logout y uso de tokens CRSF), así como comunicación con el servicio interno el cual envía correos a los jugadores cuando se registran y cuando ganan un partido.
+
+## Diagrama de navegación ##
+![DiagramaNavegacionDAD drawio](https://user-images.githubusercontent.com/59179104/162149011-6b339add-100e-494c-8ec5-65012c57feed.png)
+
+## Diagrama de clases y templates ##
 ![DCFase3](https://user-images.githubusercontent.com/46084814/161747495-b0b45a1e-0b23-45b6-9bf9-1a27a104d954.jpg)
 
 ## Instrucciones de ejecución en máquina virtual ##
