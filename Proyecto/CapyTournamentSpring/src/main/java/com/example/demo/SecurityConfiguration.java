@@ -60,17 +60,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  http.authorizeRequests().antMatchers("/champions_list").permitAll();
  http.authorizeRequests().antMatchers("/resources/*").permitAll();
  
- /*
- //TEMPORAL
- http.authorizeRequests().antMatchers("/delete_champion/*").permitAll();
- http.authorizeRequests().antMatchers("/delete_player/*").permitAll();
- http.authorizeRequests().antMatchers("/delete_team/*").permitAll();
- http.authorizeRequests().antMatchers("/leave_my_team").permitAll();
- http.authorizeRequests().antMatchers("/join_tournament/*").permitAll();
- http.authorizeRequests().antMatchers("/join_team/*").permitAll();
- //
- */
- 
  http.authorizeHttpRequests().antMatchers("/create_champion").hasAnyRole("ADMIN");
  http.authorizeHttpRequests().antMatchers("/create_tournament").hasAnyRole("ADMIN");
  http.authorizeHttpRequests().antMatchers("/delete_champion/*").hasAnyRole("ADMIN");
@@ -78,13 +67,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  http.authorizeHttpRequests().antMatchers("/delete_team/*").hasAnyRole("ADMIN");
  http.authorizeHttpRequests().antMatchers("/play_game/*/*").hasAnyRole("ADMIN");
  http.authorizeHttpRequests().antMatchers("/play_game/*").hasAnyRole("ADMIN");
- 
- /*
- http.authorizeHttpRequests().antMatchers("/create_team").hasAnyRole("PLAYER");
- //http.authorizeHttpRequests().antMatchers("/leave_my_team").hasAnyRole("PLAYER");
- //http.authorizeHttpRequests().antMatchers("/join_tournament/*").hasAnyRole("PLAYER");
- //http.authorizeHttpRequests().antMatchers("/join_team/*").hasAnyRole("PLAYER");
- */
  
  // Private pages (all other pages)
  http.authorizeRequests().anyRequest().authenticated();
