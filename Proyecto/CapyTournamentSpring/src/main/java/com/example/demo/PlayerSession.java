@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.context.annotation.SessionScope;
 
 @Component
-@SessionScope
+//@SessionScope
 public class PlayerSession {
 	
 	private String currentName = "invitado";

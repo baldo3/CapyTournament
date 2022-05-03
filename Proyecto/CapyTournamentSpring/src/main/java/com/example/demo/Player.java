@@ -41,8 +41,8 @@ public class Player extends BasicWebController{
 		model.addAttribute("teamName", teamName);
     	model.addAttribute("name", name);
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "player_template";
     }
 	
@@ -58,8 +58,8 @@ public class Player extends BasicWebController{
 		model.addAttribute("teamName", teamName);
     	model.addAttribute("name", player.getName());
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "player_template";
     }
 	
@@ -78,8 +78,8 @@ public class Player extends BasicWebController{
     		model.addAttribute("isAdmin", false);
     	}*/
 
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "list_template";
     }
 	
@@ -93,8 +93,8 @@ public class Player extends BasicWebController{
     	model.addAttribute("sectionID", "player");
     	model.addAttribute("isPlayersList", true);
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "list_template";
 	}
 }

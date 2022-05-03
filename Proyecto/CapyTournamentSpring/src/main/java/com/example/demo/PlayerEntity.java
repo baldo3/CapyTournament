@@ -1,7 +1,14 @@
 package com.example.demo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -14,7 +21,7 @@ import javax.persistence.OneToOne;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
-public class PlayerEntity {
+public class PlayerEntity implements Serializable{
 	@Id
 	@Column(name="NOMBRE_JUGADOR", length=50, nullable=false, unique=true)
 	private String name;
@@ -34,7 +41,8 @@ public class PlayerEntity {
 	//@OneToOne
 	//private ChampionEntity main;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+	 @Fetch(FetchMode.SELECT)
 	private TeamEntity team;
 	
 	@ElementCollection(fetch = FetchType.EAGER)

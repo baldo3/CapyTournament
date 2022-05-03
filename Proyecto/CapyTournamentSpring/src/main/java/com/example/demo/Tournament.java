@@ -43,8 +43,8 @@ public class Tournament extends BasicWebController{
         List<TeamEntity> teams = tournament.getTeams();
     	model.addAttribute("teams", teams);
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "tournament_template";
     }
 	
@@ -57,8 +57,8 @@ public class Tournament extends BasicWebController{
     	model.addAttribute("items", tournaments);
     	model.addAttribute("isTournamentsList", true);
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
         
     	return "list_template";
     }
@@ -68,16 +68,16 @@ public class Tournament extends BasicWebController{
 		control.newTournament(name);
 		model.addAttribute("tournamentName", name);
 		
-		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+		
+        
 		updateCurrentPlayer(model);
     	return "tournament_template";
 	}
 	
 	@GetMapping("/create_tournament")
 	public String visitCreateTournament(Model model, HttpServletRequest request) {
-		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+		
+        
 		updateCurrentPlayer(model);
     	return "create_tournament_template";
 	}
@@ -93,8 +93,8 @@ public class Tournament extends BasicWebController{
 		model.addAttribute("tournamentName", tournamentName);
         List<TeamEntity> teams = tournament.getTeams();
     	model.addAttribute("teams", teams);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	updateCurrentPlayer(model);
     	return "tournament_template";
 	}
@@ -112,8 +112,8 @@ public class Tournament extends BasicWebController{
     	model.addAttribute("players", players);
     	List<ChampionEntity> champions = championControl.findAllChampions();
     	model.addAttribute("champions", champions);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	updateCurrentPlayer(model);
     	return "tournament_template";
 	}
@@ -126,23 +126,23 @@ public class Tournament extends BasicWebController{
     		RestTemplate rt = new RestTemplate();
     		TeamEntity team = teamControl.findTeamById(teamName).get();
     		
-            String url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(0).getEmail() + "&playerName=" + team.getPlayers().get(0).getName() + "&teamName=" + teamName + "&championName=" + champion1;
+            String url = "http://internalservice:8080/sendMailVictory?email=" + team.getPlayers().get(0).getEmail() + "&playerName=" + team.getPlayers().get(0).getName() + "&teamName=" + teamName + "&championName=" + champion1;
             rt.postForEntity(url, null, String.class);
             
-            url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(1).getEmail() + "&playerName=" + team.getPlayers().get(1).getName() + "&teamName=" + teamName + "&championName=" + champion2;
+            url = "http://internalservice:8080/sendMailVictory?email=" + team.getPlayers().get(1).getEmail() + "&playerName=" + team.getPlayers().get(1).getName() + "&teamName=" + teamName + "&championName=" + champion2;
             rt.postForEntity(url, null, String.class);
             
-            url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(2).getEmail() + "&playerName=" + team.getPlayers().get(2).getName() + "&teamName=" + teamName + "&championName=" + champion3;
+            url = "http://internalservice:8080/sendMailVictory?email=" + team.getPlayers().get(2).getEmail() + "&playerName=" + team.getPlayers().get(2).getName() + "&teamName=" + teamName + "&championName=" + champion3;
             rt.postForEntity(url, null, String.class);
             
-            url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(3).getEmail() + "&playerName=" + team.getPlayers().get(3).getName() + "&teamName=" + teamName + "&championName=" + champion4;
+            url = "http://internalservice:8080/sendMailVictory?email=" + team.getPlayers().get(3).getEmail() + "&playerName=" + team.getPlayers().get(3).getName() + "&teamName=" + teamName + "&championName=" + champion4;
             rt.postForEntity(url, null, String.class);
             
-            url = "http://localhost:8080/sendMailVictory?email=" + team.getPlayers().get(4).getEmail() + "&playerName=" + team.getPlayers().get(4).getName() + "&teamName=" + teamName + "&championName=" + champion5;
+            url = "http://internalservice:8080/sendMailVictory?email=" + team.getPlayers().get(4).getEmail() + "&playerName=" + team.getPlayers().get(4).getName() + "&teamName=" + teamName + "&championName=" + champion5;
             rt.postForEntity(url, null, String.class);
     	}
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
 		return "login";
 	}
 }

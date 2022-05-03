@@ -1,16 +1,21 @@
 package com.example.demo;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
-public class TeamEntity {
+public class TeamEntity implements Serializable{
 	
 	//atributos 
 	@Id
@@ -39,10 +44,12 @@ public class TeamEntity {
 	@Column(name="ASSIST_STAT", nullable=false, unique=false)
 	private int assists = 0;
 	
-	@OneToMany(mappedBy = "team")
+	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	private List<PlayerEntity> players = new ArrayList<>();
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	private TournamentEntity tournament;
 	
 	private boolean available = true;

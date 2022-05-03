@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,9 @@ public class Home extends BasicWebController{
 	@Autowired
 	private TournamentControl tournamentControl;
 	
+	@Value("${database.load}")
+    private boolean loadDB;
+	
 	@GetMapping("/home")
     public String sayHello(Model model, HttpSession session, HttpServletRequest request) {
 		String homeText = new String("CapyTournament es tu herramienta de creación de torneos, de amateurs para amateurs.\r\n"
@@ -40,8 +44,8 @@ public class Home extends BasicWebController{
     	model.addAttribute("hasDescription", true);
     	model.addAttribute("hasImage", true);  	
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "list_template";
     }
 	
@@ -57,14 +61,14 @@ public class Home extends BasicWebController{
     	currentPlayer.setLogged(false);
     	currentPlayer.setCurrentName("invitado");
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
-
+    	
     	return "list_template";
     }
 	
 	@PostConstruct
     public void init() {
+		if(loadDB) {
+			
 		playerControl.newPlayer("Usuario");
 		
 		PlayerEntity player;
@@ -170,6 +174,7 @@ public class Home extends BasicWebController{
         championControl.newChampion("Yuumi");
         
         tournamentControl.newTournament("Superliga Blue");
+		}
 	}
 	
 }

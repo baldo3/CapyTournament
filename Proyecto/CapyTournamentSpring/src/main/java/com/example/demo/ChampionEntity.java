@@ -1,11 +1,13 @@
 package com.example.demo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class ChampionEntity {
+public class ChampionEntity implements Serializable{
 
 	@Id
 	@Column(name="NOMBRE_CAMPEON", length=50, nullable=false, unique=true)

@@ -64,8 +64,8 @@ public class Team extends BasicWebController{
     	model.addAttribute("players", players);
     	model.addAttribute("description", motto);
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "team_template";
     }
 	
@@ -94,8 +94,8 @@ public class Team extends BasicWebController{
     	model.addAttribute("description", motto);
     	model.addAttribute("isMyTeam", this.belongs(playerControl.findPlayerById(currentPlayer.getCurrentName()).get(), team));
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "team_template";
 	}
 	
@@ -121,16 +121,16 @@ public class Team extends BasicWebController{
     	model.addAttribute("isTeamsList", true);
     	updateCurrentPlayer(model);
 
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "list_template";
     }
 	
 	@GetMapping("/create_team")
 	public String teamForm(Model model, HttpServletRequest request) {
 		updateCurrentPlayer(model);
-		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+		
+        
     	return "create_team_template";
 	}
 	
@@ -165,8 +165,8 @@ public class Team extends BasicWebController{
     	
     	
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "list_template";
 	}
 	
@@ -203,8 +203,8 @@ public class Team extends BasicWebController{
     	model.addAttribute("description", motto);
     	model.addAttribute("isMyTeam", this.belongs(playerControl.findPlayerById(currentPlayer.getCurrentName()).get(), team.get()));
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "team_template";
 	}
 	

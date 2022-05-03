@@ -24,9 +24,9 @@ Jugador
 registrado: {{playerName}}</h3>
 {{/isLogged}}
 {{#isLogged}}
-<form action="/">
+<form action="/logout">
 <input type='submit' class="loginButton" value='Log-Out'/>
-<input type='hidden' name='_csrf' value='{{token}}'/>
+
 </form>
 </span>
 </div>
@@ -34,7 +34,7 @@ registrado: {{playerName}}</h3>
 {{^isLogged}}
 <form action="/login">
 <input type='submit' class="loginButton" value='Log-In'/>
-<input type='hidden' name='_csrf' value='{{token}}'/>
+
 </form>
 </span>
 </div>

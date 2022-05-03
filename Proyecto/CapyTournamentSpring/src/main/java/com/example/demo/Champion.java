@@ -26,8 +26,8 @@ public class Champion extends BasicWebController{
     public String visitChampion(Model model, @RequestParam String name, HttpServletRequest request) {
     	model.addAttribute("name", name);
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "champion_template";
     }
 	
@@ -49,16 +49,16 @@ public class Champion extends BasicWebController{
     	model.addAttribute("isChampionsList", true);
     	
     	updateCurrentPlayer(model);
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+    	
+        
     	return "list_template";
     }
 	
 	@GetMapping("/create_champion")
 	public String visitCreateChampion(Model model, HttpServletRequest request) {
 		updateCurrentPlayer(model);
-		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
+		
+        
     	return "create_champion_template";
 	}
 	

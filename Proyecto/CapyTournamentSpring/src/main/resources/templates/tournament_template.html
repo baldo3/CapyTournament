@@ -9,20 +9,14 @@
  	<tr>
  	<td>{{-index}}</td>
  	<td> <a href="/team?name={{name}}">{{name}}</a></td>
- 	<td>| puntos: </td>
- 	<td>{{points}}</td>
  	{{^isGame}}
  	<td>{{#isAdminLog}}<form action="/play_game/{{tournamentName}}/{{name}}" method="get"><input type='submit'  class="adminButton" value='Jugar'/></form>{{/isAdminLog}}</td>
- 	<input type='hidden' name='_csrf' value='{{token}}'/>
+ 	
  	{{/isGame}}
  	</tr>
  	{{/teams}}
  	</table>
  	
- 	<div id="stats">
-	<h2>Resultados:</h2>
-	<p class="wip">[WIP: Se hará si es fácil]</p class="wip">
-	</div>
 </div>
 	{{#isGame}}
 	<div id="playGame">
@@ -55,7 +49,7 @@
 	<p id="defeat">DERROTA</p id="defeat">
 	<br>
 	<input type='submit' value='Confirmar'/>
- 	<input type='hidden' name='_csrf' value='{{token}}'/>
+ 	
 	</form>
 	
 	</div id="playGame">

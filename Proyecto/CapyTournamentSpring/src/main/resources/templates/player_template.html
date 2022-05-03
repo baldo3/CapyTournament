@@ -15,15 +15,10 @@
 	<p>{{teamName}}</p>
 	{{/hasTeam}}
 	
-	<div id="stats">
-	<h2>Estadísticas:</h2>
-	<p class="wip">[WIP: Gestionadas por el servicio interno]</p class="wip">
-	</div>
-	
 	<div id="buttons">
 	{{#isAdminLog}}
 	<form action="/delete_player/{{name}}" method="post"><input type='submit'  class="adminButton" value='Banear'/></form>
- 	<input type='hidden' name='_csrf' value='{{token}}'/>
+ 	
 	{{/isAdminLog}}
 	</div>
 	

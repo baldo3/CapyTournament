@@ -32,17 +32,11 @@ public class UserWebController extends BasicWebController{
 	
 	@GetMapping("/login")
 	public String getLogin(Model model, HttpServletRequest request) {
-		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
-        
     	return "login";
 	}
 	
 	@GetMapping("/register")
 	public String getRegister(Model model, HttpServletRequest request) {
-		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("token", token.getToken());
-        
     	return "register";
 	}
 
@@ -63,30 +57,20 @@ public class UserWebController extends BasicWebController{
 	model.addAttribute("hasImage", true);
 	
 	RestTemplate rt = new RestTemplate();
-    String url = "http://localhost:8080/sendMailRegister?email=" + email + "&name=" + username;
+    String url = "http://internalservice:8080/sendMailRegister?email=" + email + "&name=" + username;
     rt.postForEntity(url, null, String.class);
     //Boolean b = rt.getForObject(url, Boolean.class);
-	
-    CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-    model.addAttribute("token", token.getToken());
-    
 	updateCurrentPlayer(model);
 	return "login";
     }
 
-@GetMapping("/loginerror")
-public String loginerror(Model model, HttpServletRequest request) {
-	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-    model.addAttribute("token", token.getToken());
-return "loginerror";
-}
+	@GetMapping("/loginerror")
+	public String loginerror(Model model) {
+		return "loginerror";
+	}
 
-/*@GetMapping("/error")
-public String error(Model model, HttpServletRequest request) {
-	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-    model.addAttribute("token", token.getToken());
-return "login";
-}*/
-	
-
+	@GetMapping("/error")
+	public String error(Model model) {
+		return "login";
+	}
 }
