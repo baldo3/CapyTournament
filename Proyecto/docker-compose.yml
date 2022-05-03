@@ -1,0 +1,34 @@
+services:
+    capytournament-1:
+        container_name: capytournament-1
+        image: miusuario/capytournament
+        depends_on:
+         - db
+         - internalservice
+        environment:
+          SPRING_JPA_HIBERNATE_DDL_AUTO: update
+          SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/capytournament
+          DATABASE_LOAD: true
+        restart: on-failure
+    capytournament-2:
+        container_name: capytournament-2
+        image: miusuario/capytournament
+        depends_on:
+         - capytournament-1
+         - db
+         - internalservice
+        environment:
+          SPRING_JPA_HIBERNATE_DDL_AUTO: none
+          SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/capytournament
+          DATABASE_LOAD: false
+        restart: on-failure
+    db:
+        image: mysql
+        environment:
+          MYSQL_DATABASE: 'capytournament'
+          MYSQL_USER: 'user'
+          MYSQL_ROOT_PASSWORD: 'capyt'
+    internalservice:
+        container_name: internalservice
+        image: miusuario/serviciointerno
+
