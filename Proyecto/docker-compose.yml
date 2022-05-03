@@ -31,4 +31,12 @@ services:
     internalservice:
         container_name: internalservice
         image: miusuario/serviciointerno
-
+    loadbalancer-web:
+        container_name: loadbalancer-web
+        build: ./haproxy-web
+        restart: always
+        ports:
+          - 443:443
+        depends_on:
+          - capytournament-1
+          - capytournament-2
