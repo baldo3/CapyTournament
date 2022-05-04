@@ -149,12 +149,21 @@ Por último:
 
 
 # 🟢 FASE 4
+## Vídeo ##
+
+
 ## Interfaz del Servicio Interno ##
-...
+La web se comunica con el servicio interno utilizando 8080 del servicio interno (http://internalservice:8080/).
+Usa los métodos sendMailVictory y sendMailRegister.
+
 ## Diagrama de clases y templates ##
+No se ha relizado ningún cambio en la estructura de clases.
+
 ![DCFase4](https://user-images.githubusercontent.com/46084814/161747495-b0b45a1e-0b23-45b6-9bf9-1a27a104d954.jpg)
 
 ## Diagrama de Docker Compose ##
+El docker compose comunica las imágenes de todos los componentes a través de los puertos y las URLs de cada uno.
 
 ![DockerComposeDiagrama](https://user-images.githubusercontent.com/46084814/166800109-e095fc74-f9f4-4cd8-9ee8-087f02c3cddb.jpg)
+
 
