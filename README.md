@@ -147,3 +147,14 @@ Por último:
 - Ejecutar una terminal de comandos y dirigirse al directorio donde se encuentran los dos ejecutables
 - Ejecutar el comando **sudo java -jar** seguido del nombre del ejecutable de la aplicación principal y después ejecutar el mismo comando con el nombre del ejecutable del servidor interno.
 
+
+# 🟢 FASE 4
+## Interfaz del Servicio Interno ##
+...
+## Diagrama de clases y templates ##
+![DCFase4](https://user-images.githubusercontent.com/46084814/161747495-b0b45a1e-0b23-45b6-9bf9-1a27a104d954.jpg)
+
+## Diagrama de Docker Compose ##
+
+![DockerComposeDiagrama](https://user-images.githubusercontent.com/46084814/166800109-e095fc74-f9f4-4cd8-9ee8-087f02c3cddb.jpg)
+
